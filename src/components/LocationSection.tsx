@@ -1,11 +1,37 @@
+import { Car } from "lucide-react";
+
+const distances = [
+  { time: "90", label: "Minutes from Bangalore Airport" },
+  { time: "60", label: "Minutes from MG Road" },
+  { time: "30", label: "Minutes from Whitefield" },
+  { time: "15", label: "Minutes to Nearest Town" },
+];
+
 const LocationSection = () => (
   <section id="location" className="py-24 bg-section-alt">
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">Close to the City. Far from the Chaos.</h2>
+      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
+        Close to the City. Far from the Chaos.
+      </h2>
       <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
       <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
-        Located within comfortable driving distance from Bangalore, Soravana offers the perfect balance of accessibility and escape.
+        Located within comfortable driving distance from Bangalore, Soravana
+        offers the perfect balance of accessibility and escape.
       </p>
+
+      {/* Distance highlights */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-12">
+        {distances.map((d) => (
+          <div key={d.label} className="text-center">
+            <div className="flex items-center justify-center gap-1 mb-1">
+              <Car className="w-4 h-4 text-accent" />
+              <span className="text-3xl font-heading text-primary">{d.time}</span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-tight">{d.label}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="rounded-lg overflow-hidden shadow-md max-w-4xl mx-auto">
         <iframe
           title="Soravana Location"
