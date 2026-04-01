@@ -10,6 +10,7 @@ import SustainabilitySection from "@/components/SustainabilitySection";
 import CommunitySection from "@/components/CommunitySection";
 import StaySection from "@/components/StaySection";
 import BuildSection from "@/components/BuildSection";
+import BuildFreedomSection from "@/components/BuildFreedomSection";
 import TrustSection from "@/components/TrustSection";
 import GallerySection from "@/components/GallerySection";
 import BrochureSection from "@/components/BrochureSection";
@@ -35,6 +36,7 @@ const Index = () => (
     <CommunitySection />
     <StaySection />
     <BuildSection />
+    <BuildFreedomSection />
     <TrustSection />
     <GallerySection />
     <BrochureSection />
