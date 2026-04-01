@@ -36,6 +36,7 @@ const Index = () => (
     <CommunitySection />
     <StaySection />
     <BuildSection />
+    <BuildFreedomSection />
     <TrustSection />
     <GallerySection />
     <BrochureSection />
