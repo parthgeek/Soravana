@@ -10,8 +10,11 @@ const HeroSection = () => (
       width={1920}
       height={1080}
     />
-    <div className="absolute inset-0 bg-foreground/55" />
-    <div className="relative z-10 text-center px-4 max-w-3xl mx-auto animate-fade-up">
+    <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/70" />
+    <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-up">
+      <span className="inline-block text-accent font-body text-sm tracking-[0.25em] uppercase mb-6 bg-accent/10 px-4 py-1.5 rounded-full backdrop-blur-sm">
+        Premium Managed Farmland • Near Bangalore
+      </span>
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading leading-tight text-primary-foreground mb-6">
         Soravana Farmland
       </h1>
