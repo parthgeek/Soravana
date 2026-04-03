@@ -6,76 +6,78 @@
 
 @layer base {
   :root {
-    --background: 40 33% 96%;
-    --foreground: 150 20% 15%;
+    --background: 45 40% 97%;
+    --foreground: 160 30% 10%;
 
-    --card: 40 30% 93%;
-    --card-foreground: 150 20% 15%;
+    --card: 45 35% 95%;
+    --card-foreground: 160 30% 10%;
 
-    --popover: 40 33% 96%;
-    --popover-foreground: 150 20% 15%;
+    --popover: 45 40% 97%;
+    --popover-foreground: 160 30% 10%;
 
-    --primary: 145 35% 28%;
-    --primary-foreground: 40 33% 96%;
+    --primary: 152 45% 30%;
+    --primary-foreground: 45 40% 97%;
 
-    --secondary: 35 30% 88%;
-    --secondary-foreground: 150 20% 15%;
+    --secondary: 38 35% 90%;
+    --secondary-foreground: 160 30% 10%;
 
-    --muted: 40 20% 90%;
-    --muted-foreground: 150 10% 45%;
+    --muted: 45 20% 92%;
+    --muted-foreground: 160 12% 42%;
 
-    --accent: 35 60% 50%;
-    --accent-foreground: 40 33% 96%;
+    --accent: 28 80% 52%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 40 20% 85%;
-    --input: 40 20% 85%;
-    --ring: 145 35% 28%;
+    --border: 45 22% 87%;
+    --input: 45 22% 87%;
+    --ring: 152 45% 30%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 40 30% 93%;
-    --sidebar-foreground: 150 20% 15%;
-    --sidebar-primary: 145 35% 28%;
-    --sidebar-primary-foreground: 40 33% 96%;
-    --sidebar-accent: 35 30% 88%;
-    --sidebar-accent-foreground: 150 20% 15%;
-    --sidebar-border: 40 20% 85%;
-    --sidebar-ring: 145 35% 28%;
+    --sidebar-background: 45 35% 95%;
+    --sidebar-foreground: 160 30% 10%;
+    --sidebar-primary: 152 45% 30%;
+    --sidebar-primary-foreground: 45 40% 97%;
+    --sidebar-accent: 38 35% 90%;
+    --sidebar-accent-foreground: 160 30% 10%;
+    --sidebar-border: 45 22% 87%;
+    --sidebar-ring: 152 45% 30%;
 
-    --hero-overlay: 150 20% 10%;
-    --section-alt: 40 25% 94%;
-    --gold: 35 60% 50%;
+    --hero-overlay: 160 30% 8%;
+    --section-alt: 45 30% 95%;
+    --gold: 28 80% 52%;
+    --emerald: 152 55% 38%;
+    --warm: 28 60% 95%;
   }
 
   .dark {
-    --background: 150 20% 8%;
-    --foreground: 40 33% 96%;
-    --card: 150 20% 12%;
-    --card-foreground: 40 33% 96%;
-    --popover: 150 20% 12%;
-    --popover-foreground: 40 33% 96%;
-    --primary: 145 35% 45%;
-    --primary-foreground: 150 20% 8%;
-    --secondary: 150 15% 18%;
-    --secondary-foreground: 40 33% 96%;
-    --muted: 150 15% 18%;
-    --muted-foreground: 40 15% 65%;
-    --accent: 35 60% 50%;
-    --accent-foreground: 150 20% 8%;
-    --border: 150 15% 20%;
-    --input: 150 15% 20%;
-    --ring: 145 35% 45%;
-    --sidebar-background: 150 20% 10%;
-    --sidebar-foreground: 40 33% 96%;
-    --sidebar-primary: 145 35% 45%;
-    --sidebar-primary-foreground: 150 20% 8%;
-    --sidebar-accent: 150 15% 18%;
-    --sidebar-accent-foreground: 40 33% 96%;
-    --sidebar-border: 150 15% 20%;
-    --sidebar-ring: 145 35% 45%;
+    --background: 160 25% 6%;
+    --foreground: 45 40% 97%;
+    --card: 160 22% 10%;
+    --card-foreground: 45 40% 97%;
+    --popover: 160 22% 10%;
+    --popover-foreground: 45 40% 97%;
+    --primary: 152 50% 42%;
+    --primary-foreground: 160 25% 6%;
+    --secondary: 160 18% 16%;
+    --secondary-foreground: 45 40% 97%;
+    --muted: 160 18% 16%;
+    --muted-foreground: 45 18% 62%;
+    --accent: 28 80% 52%;
+    --accent-foreground: 160 25% 6%;
+    --border: 160 18% 18%;
+    --input: 160 18% 18%;
+    --ring: 152 50% 42%;
+    --sidebar-background: 160 25% 8%;
+    --sidebar-foreground: 45 40% 97%;
+    --sidebar-primary: 152 50% 42%;
+    --sidebar-primary-foreground: 160 25% 6%;
+    --sidebar-accent: 160 18% 16%;
+    --sidebar-accent-foreground: 45 40% 97%;
+    --sidebar-border: 160 18% 18%;
+    --sidebar-ring: 152 50% 42%;
   }
 }
 
@@ -101,4 +103,13 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up {
+  animation: count-up 0.6s ease-out forwards;
 }
