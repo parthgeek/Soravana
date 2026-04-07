@@ -43,13 +43,13 @@ const StatItem = ({ value, suffix, label }: { value: number; suffix: string; lab
       <p className={`text-4xl md:text-5xl font-heading text-accent mb-2 ${started ? "animate-count-up" : "opacity-0"}`}>
         {count.toLocaleString()}{suffix}
       </p>
-      <p className="text-primary-foreground/70 text-sm font-body tracking-wide uppercase">{label}</p>
+      <p className="text-muted-foreground text-sm font-body tracking-wide uppercase">{label}</p>
     </div>
   );
 };
 
 const StatsSection = () => (
-  <section className="py-16 bg-primary">
+  <section className="py-16 bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {stats.map((s) => (
