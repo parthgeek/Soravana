@@ -21,8 +21,8 @@ const principles = [
 const SustainabilitySection = () => (
   <section className="py-24 bg-foreground">
     <div className="container mx-auto px-4 text-center">
-      <h2 className="text-2xl md:text-4xl font-heading text-primary-foreground mb-4 max-w-2xl mx-auto leading-snug">
-        By Applying the Principles of Permaculture, We Create a More
+      <h2 className="text-2xl md:text-4xl font-heading text-foreground mb-4 max-w-2xl mx-auto leading-snug">
+        By Applying the Principles of Conventional Farming, We Create a More
         Sustainable Future
       </h2>
       <div className="w-16 h-0.5 bg-accent mx-auto mb-14" />

@@ -19,7 +19,7 @@ const ExperienceSection = () => (
         Unwind with your family by the evening fire.
       </p>
       <p className="text-primary-foreground/70 font-body italic text-sm md:text-base">
-        Soravana is not a place you visit — it's a life you return to.
+        A life rooted in nature, designed for you.
       </p>
     </div>
   </section>

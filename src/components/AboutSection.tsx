@@ -2,8 +2,8 @@ import { Sprout, Home, Leaf, Users } from "lucide-react";
 
 const items = [
   { icon: Sprout, title: "Own", desc: "Individually owned 5,000 sq. ft. farmland plots with clear titles." },
-  { icon: Home, title: "Build", desc: "Design and build your farmhouse at your own pace." },
   { icon: Leaf, title: "Farm", desc: "Grow your own food or opt for managed farming support." },
+  { icon: Home, title: "Build", desc: "Design and build your farmhouse at your own pace." },
   { icon: Users, title: "Belong", desc: "Be part of a like-minded community that values nature and simplicity." },
 ];
 
