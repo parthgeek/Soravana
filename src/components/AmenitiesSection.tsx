@@ -8,18 +8,14 @@ import {
 
 import playgroundImg from "@/assets/amenity-playground.jpg";
 import diningImg from "@/assets/amenity-dining.jpg";
-import bonfireImg from "@/assets/amenity-bonfire.jpg";
 import gardenImg from "@/assets/amenity-garden.jpg";
 import clubhouseImg from "@/assets/amenity-clubhouse.jpg";
-import retreatImg from "@/assets/amenity-retreat.jpg";
 
 const amenities = [
   { img: playgroundImg, label: "Children's Play Area" },
   { img: diningImg, label: "Outdoor Dining" },
-  { img: bonfireImg, label: "Camping & Bonfire" },
   { img: gardenImg, label: "Community Vegetable Garden" },
-  { img: clubhouseImg, label: "Clubhouse & Events" },
-  { img: retreatImg, label: "Yoga & Retreat Area" },
+  { img: clubhouseImg, label: "Nature Lounge & Events" },
 ];
 
 const AmenitiesSection = () => (
@@ -28,6 +24,9 @@ const AmenitiesSection = () => (
       <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
         Amenities That Elevate Your Lifestyle
       </h2>
+      <p className="text-center font-heading italic text-lg md:text-xl text-muted-foreground mb-2">
+        Soravana is not a place you visit — it's a life you return to.
+      </p>
       <div className="w-16 h-0.5 bg-accent mx-auto mb-12" />
       <Carousel opts={{ align: "start", loop: true }} className="max-w-5xl mx-auto">
         <CarouselContent className="-ml-4">

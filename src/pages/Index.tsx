@@ -9,7 +9,7 @@ import AdvantageSection from "@/components/AdvantageSection";
 import InvestmentSection from "@/components/InvestmentSection";
 import FarmingSection from "@/components/FarmingSection";
 import SustainabilitySection from "@/components/SustainabilitySection";
-import CommunitySection from "@/components/CommunitySection";
+
 import WhyChooseSection from "@/components/WhyChooseSection";
 import StaySection from "@/components/StaySection";
 import BuildSection from "@/components/BuildSection";
@@ -39,7 +39,7 @@ const Index = () => (
     <InvestmentSection />
     <FarmingSection />
     <SustainabilitySection />
-    <CommunitySection />
+    
     <WhyChooseSection />
     <StaySection />
     <BuildSection />
