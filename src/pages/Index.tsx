@@ -39,7 +39,7 @@ const Index = () => (
     <InvestmentSection />
     <FarmingSection />
     <SustainabilitySection />
-    <CommunitySection />
+    
     <WhyChooseSection />
     <StaySection />
     <BuildSection />
