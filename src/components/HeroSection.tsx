@@ -30,9 +30,12 @@ const HeroSection = () => (
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8">
         {/* Left: Title + CTAs */}
         <div className="animate-fade-up">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-6 italic">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-2 italic">
             Soravana Farmland
           </h1>
+          <p className="text-primary-foreground/80 font-heading italic text-lg md:text-xl mb-6">
+            Soravana is not a place you visit — it's a life you return to.
+          </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button variant="hero" size="lg">Book Site Visit</Button>
             <Button variant="hero-outline" size="lg">Download Brochure</Button>
