@@ -21,44 +21,52 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border" : "bg-background/40 backdrop-blur-sm"}`}>
-      <div className="container mx-auto flex items-center justify-between py-4 px-4">
-        <a href="#home" className={`font-heading text-xl tracking-wider transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
-          SORAVANA
-        </a>
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`text-sm font-body tracking-wide hover:text-accent transition-colors ${scrolled ? "text-foreground/80" : "text-primary-foreground/80"}`}
-            >
-              {link.label}
-            </a>
-          ))}
+    <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 md:pt-6">
+      <div
+        className={`mx-auto max-w-6xl rounded-2xl transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg"
+            : "bg-white/80 backdrop-blur-sm shadow-md"
+        }`}
+      >
+        <div className="flex items-center justify-between py-3 px-6 md:px-8">
+          <a href="#home" className="font-heading text-xl tracking-[0.15em] text-accent">
+            SORAVANA
+          </a>
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-        <button
-          className={`md:hidden transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {open && (
+          <div className="md:hidden px-6 pb-4 space-y-3 border-t border-border/30">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-1"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
-      {open && (
-        <div className="md:hidden bg-background/95 backdrop-blur-md px-4 pb-6 space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block text-sm font-body tracking-wide text-foreground/80 hover:text-accent transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
     </nav>
   );
 };
