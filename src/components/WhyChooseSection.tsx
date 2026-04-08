@@ -1,4 +1,9 @@
-import { CheckCircle2 } from "lucide-react";
+const sketchCheck = (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" strokeDasharray="3 2" />
+    <path d="M8 12 L11 15 L16 9" />
+  </svg>
+);
 
 const reasons = [
   "Professionally managed organic farming with expert agronomists",
@@ -27,7 +32,7 @@ const WhyChooseSection = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {reasons.map((r) => (
             <div key={r} className="flex items-start gap-3 bg-background rounded-lg p-4 border border-border">
-              <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <span className="text-accent">{sketchCheck}</span>
               <p className="text-foreground/90 text-sm leading-relaxed">{r}</p>
             </div>
           ))}
