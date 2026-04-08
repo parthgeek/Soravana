@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-farmland.jpg";
 
+const stats = [
+  { value: "11+", label: "ACRES OF COMMUNITY" },
+  { value: "150+", label: "HAPPY FAMILIES" },
+  { value: "5,000+", label: "TREES PLANTED" },
+];
+
 const HeroSection = () => (
-  <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <section id="home" className="relative min-h-screen flex flex-col overflow-hidden">
     <img
       src={heroImg}
       alt="Aerial view of Soravana farmland at sunset"
@@ -10,24 +16,42 @@ const HeroSection = () => (
       width={1920}
       height={1080}
     />
-    <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/70" />
-    <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-up">
-      <span className="inline-block text-accent font-body text-sm tracking-[0.25em] uppercase mb-6 bg-accent/10 px-4 py-1.5 rounded-full backdrop-blur-sm">
+    <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-foreground/10" />
+
+    {/* Top badge */}
+    <div className="relative z-10 text-center pt-28 md:pt-32">
+      <span className="inline-block text-accent font-body text-xs md:text-sm tracking-[0.25em] uppercase">
         Premium Managed Farmland • Near Bangalore
       </span>
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading leading-tight text-primary-foreground mb-6">
-        Soravana Farmland
-      </h1>
-      <p className="font-heading italic text-lg md:text-2xl text-primary-foreground/90 mb-4">
-        Where Land Becomes Life
-      </p>
-      <p className="text-sm md:text-base text-primary-foreground/75 font-body max-w-xl mx-auto mb-10 leading-relaxed">
-        Own a 5,000 sq. ft. farmland in a thoughtfully planned 11-acre community near Bangalore.
-        Build your home, grow your food, and experience nature — your way.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button variant="hero" size="lg">Book Site Visit</Button>
-        <Button variant="hero-outline" size="lg">Download Brochure</Button>
+    </div>
+
+    {/* Bottom content */}
+    <div className="relative z-10 mt-auto pb-12 md:pb-16 px-6 md:px-12 lg:px-16">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8">
+        {/* Left: Title + CTAs */}
+        <div className="animate-fade-up">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-6 italic">
+            Soravana Farmland
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="hero" size="lg">Book Site Visit</Button>
+            <Button variant="hero-outline" size="lg">Download Brochure</Button>
+          </div>
+        </div>
+
+        {/* Right: Stats */}
+        <div className="flex gap-8 md:gap-12">
+          {stats.map((s) => (
+            <div key={s.label} className="text-right">
+              <p className="text-3xl md:text-5xl font-heading text-primary-foreground leading-none mb-1 italic">
+                {s.value}
+              </p>
+              <p className="text-[10px] md:text-xs text-primary-foreground/70 font-body tracking-[0.15em] uppercase">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
