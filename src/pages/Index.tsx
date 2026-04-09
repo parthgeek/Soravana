@@ -31,6 +31,7 @@ const Index = () => (
     <Navbar />
     <HeroSection />
     
+    <StaySection />
     <AboutSection />
     <AdvantageSection />
     <OverviewSection />
@@ -41,7 +42,6 @@ const Index = () => (
     <SustainabilitySection />
     
     <WhyChooseSection />
-    <StaySection />
     <BuildSection />
     <BuildFreedomSection />
     <TeamSection />

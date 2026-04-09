@@ -1,5 +1,5 @@
 import { Leaf } from "lucide-react";
-import farmingImg from "@/assets/farming.jpg";
+import farmingImg from "@/assets/farming-sketch.jpg";
 
 const points = [
   "Organic & natural farming practices",

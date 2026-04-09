@@ -1,4 +1,4 @@
-import cottageImg from "@/assets/cottage.jpg";
+import cottageImg from "@/assets/cottage-sketch.jpg";
 
 const points = [
   "Book in-house cottages",
