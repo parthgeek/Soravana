@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-farmland.jpg";
+import heroImg from "@/assets/hero-original.jpg";
 
 const stats = [
   { value: "11+", label: "ACRES OF COMMUNITY" },
@@ -34,7 +34,7 @@ const HeroSection = () => (
             Soravana Farmland
           </h1>
           <p className="text-primary-foreground/80 font-heading italic text-lg md:text-xl mb-6">
-            Soravana is not a place you visit — it's a life you return to.
+            It's a life you return to.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button variant="hero" size="lg">Book Site Visit</Button>
