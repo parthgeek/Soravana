@@ -1,9 +1,8 @@
-import { Home, Paintbrush, Ruler, Clock, TreePine, Hammer } from "lucide-react";
+import { Home, Paintbrush, Clock, TreePine, Hammer } from "lucide-react";
 
 const freedoms = [
   { icon: Home, title: "Your Design, Your Rules", desc: "No cookie-cutter layouts. Build the home you've always imagined." },
   { icon: Paintbrush, title: "Any Architecture Style", desc: "Modern, rustic, traditional, or minimalist — it's entirely your call." },
-  { icon: Ruler, title: "No Size Restrictions", desc: "Build a cozy cottage or a sprawling estate — your plot, your choice." },
   { icon: Clock, title: "Build on Your Timeline", desc: "No pressure to start immediately. Construct when you're ready." },
   { icon: TreePine, title: "Landscape Freely", desc: "Design your gardens, pathways, and outdoor spaces however you wish." },
   { icon: Hammer, title: "Choose Your Builder", desc: "Hire any contractor or use our recommended partners — no lock-ins." },
