@@ -1,4 +1,4 @@
-import { Home, Paintbrush, Ruler, Clock, TreePine, Hammer } from "lucide-react";
+import { Home, Paintbrush, Clock, TreePine, Hammer } from "lucide-react";
 
 const freedoms = [
   { icon: Home, title: "Your Design, Your Rules", desc: "No cookie-cutter layouts. Build the home you've always imagined." },
