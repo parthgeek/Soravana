@@ -1,4 +1,4 @@
-import communityImg from "@/assets/community.jpg";
+const communityImg = "/assets/community.jpg";
 
 const features = [
   "Central community hall",

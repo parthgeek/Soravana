@@ -145,22 +145,43 @@ const items = [
   },
 ];
 
+import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
+import { motion } from "framer-motion";
+
 const AboutSection = () => (
   <section id="about" className="py-24 bg-background">
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">More Than Land. A Way of Living.</h2>
-      <div className="w-16 h-0.5 bg-accent mx-auto mb-16" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <AnimateIn variant="fadeUp" className="text-center mb-16">
+        <h2 className="text-3xl md:text-5xl font-heading mb-4">More Than Land. A Way of Living.</h2>
+        <motion.div
+          className="w-16 h-0.5 bg-accent mx-auto"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+      </AnimateIn>
+      <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {items.map((item) => (
-          <div key={item.title} className="text-center group">
-            <div className="w-32 h-32 md:w-36 md:h-36 mx-auto mb-5 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
-              {item.sketch}
-            </div>
-            <h3 className="text-xl font-heading mb-2">{item.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-          </div>
+          <StaggerChild key={item.title}>
+            <motion.div
+              className="text-center group"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                className="w-32 h-32 md:w-36 md:h-36 mx-auto mb-5 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                {item.sketch}
+              </motion.div>
+              <h3 className="text-xl font-heading mb-2">{item.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+            </motion.div>
+          </StaggerChild>
         ))}
-      </div>
+      </StaggerParent>
     </div>
   </section>
 );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -21,7 +22,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 md:pt-6">
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 md:pt-6"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+    >
       <div
         className={`mx-auto max-w-6xl rounded-2xl transition-all duration-300 ${
           scrolled
@@ -34,14 +40,17 @@ const Navbar = () => {
             SORAVANA
           </a>
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, i) => (
+              <motion.a
                 key={link.href}
                 href={link.href}
                 className="text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.07, duration: 0.4 }}
               >
                 {link.label}
-              </a>
+              </motion.a>
             ))}
           </div>
           <button
@@ -49,25 +58,49 @@ const Navbar = () => {
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
-            {open ? <X size={24} /> : <Menu size={24} />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={open ? "close" : "open"}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {open ? <X size={24} /> : <Menu size={24} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </div>
-        {open && (
-          <div className="md:hidden px-6 pb-4 space-y-3 border-t border-border/30">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-1"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        )}
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              className="md:hidden overflow-hidden border-t border-border/30"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <div className="px-6 pb-4 pt-3 space-y-1">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-2"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.25 }}
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

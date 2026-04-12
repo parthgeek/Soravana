@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 import {
   Accordion,
   AccordionContent,
@@ -15,20 +17,32 @@ const faqs = [
 const FAQSection = () => (
   <section className="py-24 bg-section-alt">
     <div className="container mx-auto px-4 max-w-2xl">
-      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">Frequently Asked Questions</h2>
-      <div className="w-16 h-0.5 bg-accent mx-auto mb-12" />
-      <Accordion type="single" collapsible className="space-y-3">
-        {faqs.map((faq, i) => (
-          <AccordionItem key={i} value={`faq-${i}`} className="bg-background rounded-lg px-6 border-none">
-            <AccordionTrigger className="text-left font-heading text-base hover:no-underline">
-              {faq.q}
-            </AccordionTrigger>
-            <AccordionContent className="text-muted-foreground text-sm">
-              {faq.a}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <AnimateIn variant="fadeUp" className="text-center mb-12">
+        <h2 className="text-3xl md:text-5xl font-heading mb-4">Frequently Asked Questions</h2>
+        <motion.div
+          className="w-16 h-0.5 bg-accent mx-auto"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+      </AnimateIn>
+      <StaggerParent>
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, i) => (
+            <StaggerChild key={i}>
+              <AccordionItem value={`faq-${i}`} className="bg-background rounded-lg px-6 border-none">
+                <AccordionTrigger className="text-left font-heading text-base hover:no-underline">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-sm">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            </StaggerChild>
+          ))}
+        </Accordion>
+      </StaggerParent>
     </div>
   </section>
 );

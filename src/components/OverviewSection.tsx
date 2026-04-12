@@ -54,24 +54,45 @@ const highlights = [
   { icon: sketchIcons.cottage, label: "Stay Cottages", value: "Weekend Retreat Ready" },
 ];
 
+import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
+import { motion } from "framer-motion";
+
 const OverviewSection = () => (
   <section className="py-24 bg-section-alt">
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">Project Highlights</h2>
-      <div className="w-16 h-0.5 bg-accent mx-auto mb-16" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <AnimateIn variant="fadeUp" className="text-center mb-16">
+        <h2 className="text-3xl md:text-5xl font-heading mb-4">Project Highlights</h2>
+        <motion.div
+          className="w-16 h-0.5 bg-accent mx-auto"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+      </AnimateIn>
+      <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {highlights.map((h) => (
-          <div key={h.label} className="bg-background rounded-lg p-6 flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-primary">
-              {h.icon}
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{h.label}</p>
-              <p className="font-heading text-lg">{h.value}</p>
-            </div>
-          </div>
+          <StaggerChild key={h.label}>
+            <motion.div
+              className="bg-background rounded-lg p-6 flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -4, boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+              transition={{ duration: 0.25 }}
+            >
+              <motion.div
+                className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-primary"
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.18)" }}
+                transition={{ duration: 0.25 }}
+              >
+                {h.icon}
+              </motion.div>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{h.label}</p>
+                <p className="font-heading text-lg">{h.value}</p>
+              </div>
+            </motion.div>
+          </StaggerChild>
         ))}
-      </div>
+      </StaggerParent>
     </div>
   </section>
 );

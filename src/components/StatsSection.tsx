@@ -1,4 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { StaggerParent, StaggerChild } from "@/components/AnimateIn";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: 11, suffix: "+", label: "Acres of Community" },
@@ -7,41 +12,40 @@ const stats = [
   { value: 100, suffix: "%", label: "Organic & Chemical-Free" },
 ];
 
-const useCountUp = (end: number, duration = 2000) => {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!started) return;
-    let start = 0;
-    const increment = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) { setCount(end); clearInterval(timer); }
-      else setCount(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
-  }, [started, end, duration]);
-
-  return { count, ref, started };
-};
-
 const StatItem = ({ value, suffix, label }: { value: number; suffix: string; label: string }) => {
-  const { count, ref, started } = useCountUp(value);
+  const numRef = useRef<HTMLSpanElement>(null);
+  const triggered = useRef(false);
+
+  useEffect(() => {
+    const el = numRef.current;
+    if (!el) return;
+
+    const obj = { val: 0 };
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        if (triggered.current) return;
+        triggered.current = true;
+        gsap.to(obj, {
+          val: value,
+          duration: 1.8,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.textContent = Math.round(obj.val).toLocaleString() + suffix;
+          },
+        });
+      },
+    });
+
+    return () => trigger.kill();
+  }, [value, suffix]);
+
   return (
-    <div ref={ref} className="text-center">
-      <p className={`text-4xl md:text-5xl font-heading text-accent mb-2 ${started ? "animate-count-up" : "opacity-0"}`}>
-        {count.toLocaleString()}{suffix}
+    <div className="text-center">
+      <p className="text-4xl md:text-5xl font-heading text-accent mb-2">
+        <span ref={numRef}>0{suffix}</span>
       </p>
       <p className="text-muted-foreground text-sm font-body tracking-wide uppercase">{label}</p>
     </div>
@@ -51,11 +55,13 @@ const StatItem = ({ value, suffix, label }: { value: number; suffix: string; lab
 const StatsSection = () => (
   <section className="py-16 bg-section-alt">
     <div className="container mx-auto px-4">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <StaggerParent className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {stats.map((s) => (
-          <StatItem key={s.label} {...s} />
+          <StaggerChild key={s.label}>
+            <StatItem {...s} />
+          </StaggerChild>
         ))}
-      </div>
+      </StaggerParent>
     </div>
   </section>
 );

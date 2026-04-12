@@ -82,33 +82,51 @@ const advantages = [
   },
 ];
 
+import { motion } from "framer-motion";
+import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
+
 const AdvantageSection = () => (
   <section className="py-24 bg-background">
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
-        The Soravana Advantage
-      </h2>
-      <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
-      <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-14">
-        Everything you need for a sustainable, connected, and fulfilling
-        lifestyle — all in one place.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <AnimateIn variant="fadeUp" className="text-center mb-14">
+        <h2 className="text-3xl md:text-5xl font-heading mb-4">
+          The Soravana Advantage
+        </h2>
+        <motion.div
+          className="w-16 h-0.5 bg-accent mx-auto mb-6"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Everything you need for a sustainable, connected, and fulfilling
+          lifestyle — all in one place.
+        </p>
+      </AnimateIn>
+      <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {advantages.map((a) => (
-          <div
-            key={a.title}
-            className="bg-card rounded-xl p-6 border border-border hover:shadow-md transition-shadow group"
-          >
-            <div className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors text-primary">
-              {a.icon}
-            </div>
-            <h3 className="font-heading text-lg mb-2">{a.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              {a.desc}
-            </p>
-          </div>
+          <StaggerChild key={a.title}>
+            <motion.div
+              className="bg-card rounded-xl p-6 border border-border hover:shadow-md transition-shadow group"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.25 }}
+            >
+              <motion.div
+                className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors text-primary"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.25 }}
+              >
+                {a.icon}
+              </motion.div>
+              <h3 className="font-heading text-lg mb-2">{a.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {a.desc}
+              </p>
+            </motion.div>
+          </StaggerChild>
         ))}
-      </div>
+      </StaggerParent>
     </div>
   </section>
 );

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Download, Map } from "lucide-react";
-import aerialImg from "@/assets/gallery-aerial.jpg";
+const aerialImg = "/assets/gallery-aerial.jpg";
 
 const BrochureSection = () => (
   <section className="py-24 bg-section-alt">
