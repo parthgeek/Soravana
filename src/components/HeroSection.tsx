@@ -1,11 +1,14 @@
-import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-
 const heroImg = "/assets/hero-original.jpg";
+const heroVideo = "/herosection.mp4";
 
 const HeroSection = () => {
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -40,15 +43,60 @@ const HeroSection = () => {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    const markReady = () => setIsVideoReady(true);
+
+    if (video.readyState >= 2) {
+      markReady();
+    }
+
+    video.addEventListener("loadeddata", markReady);
+    video.addEventListener("canplay", markReady);
+    video.addEventListener("playing", markReady);
+
+    void video.play().catch(() => {
+      // Keep the image visible if autoplay is blocked or the codec is unsupported.
+    });
+
+    return () => {
+      video.removeEventListener("loadeddata", markReady);
+      video.removeEventListener("canplay", markReady);
+      video.removeEventListener("playing", markReady);
+    };
+  }, []);
+
   return (
     <section id="home" className="relative min-h-screen flex flex-col overflow-hidden">
       <img
         src={heroImg}
         alt="Aerial view of Soravana farmland at sunset"
-        className="absolute inset-0 w-full h-full object-cover"
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+          isVideoReady ? "opacity-0" : "opacity-100"
+        }`}
         width={1920}
         height={1080}
       />
+      <video
+        ref={videoRef}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+          isVideoReady ? "opacity-100" : "opacity-0"
+        }`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={heroImg}
+        aria-hidden="true"
+      >
+        <source src={heroVideo} type="video/mp4" />
+      </video>
       <div ref={overlayRef} className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-foreground/10" />
 
       {/* Top badge */}
@@ -72,10 +120,7 @@ const HeroSection = () => {
             <p ref={subtitleRef} className="text-primary-foreground/80 font-heading italic text-lg md:text-xl mb-6">
               It's a life you return to.
             </p>
-           
           </div>
-
-        
         </div>
       </div>
     </section>
