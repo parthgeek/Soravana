@@ -11,8 +11,8 @@ const sketchCheck = (
 const reasons = [
   "Professionally managed organic farming with expert agronomists",
   "100% legally verified with clear titles and documentation",
-  "Premium amenities: Nature Lounge, pool, cottages & organic store",
-  "Just 60-90 minutes from Bangalore city center",
+  "Premium amenities: Nature Lounge, cottages and more",
+  "Approx. 85-120 minutes from key Bangalore hubs",
   "Complete freedom to design and build your dream home",
   "Real-time farm updates and transparent reporting",
   "Gated community with 24/7 security and CCTV",

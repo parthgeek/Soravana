@@ -54,9 +54,7 @@ const InvestmentSection = () => (
           </StaggerChild>
         ))}
       </StaggerParent>
-      <AnimateIn variant="fadeUp" delay={0.2} className="text-center">
-        <Button variant="hero" size="lg">Download Investment Guide</Button>
-      </AnimateIn>
+ 
     </div>
   </section>
 );

@@ -49,9 +49,7 @@ const PricingCTA = () => (
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="hero" size="lg">Book Site Visit</Button>
-              </motion.div>
+              
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                 <Button variant="hero-outline" size="lg">Talk to Advisor</Button>
               </motion.div>

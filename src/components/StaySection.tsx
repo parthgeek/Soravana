@@ -29,7 +29,7 @@ const StaySection = () => (
           </motion.div>
         </AnimateIn>
         <AnimateIn variant="fadeRight" delay={0.1}>
-          <h2 className="text-3xl md:text-4xl font-heading mb-4">Stay Anytime, Even Before You Build</h2>
+          <h2 className="text-3xl md:text-4xl font-heading mb-4">Stay Till You Build Your Home</h2>
           <motion.div
             className="w-12 h-0.5 bg-accent mb-6"
             initial={{ scaleX: 0 }}

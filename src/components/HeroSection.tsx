@@ -2,11 +2,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import gsap from "gsap";
 
-const stats = [
-  { value: "11+", label: "ACRES OF COMMUNITY" },
-  { value: "150+", label: "HAPPY FAMILIES" },
-  { value: "5,000+", label: "TREES PLANTED" },
-];
+
 const heroImg = "/assets/hero-original.jpg";
 
 const HeroSection = () => {
@@ -57,7 +53,10 @@ const HeroSection = () => {
 
       {/* Top badge */}
       <div className="relative z-10 text-center pt-28 md:pt-32">
-        <span ref={badgeRef} className="inline-block text-accent font-body text-xs md:text-sm tracking-[0.25em] uppercase">
+        <span
+          ref={badgeRef}
+          className="inline-block rounded-full bg-black/35 px-4 py-2 text-primary-foreground font-body font-semibold text-xs md:text-sm tracking-[0.25em] uppercase shadow-sm backdrop-blur-[2px]"
+        >
           Premium Managed Farmland • Near Bangalore
         </span>
       </div>
@@ -73,25 +72,10 @@ const HeroSection = () => {
             <p ref={subtitleRef} className="text-primary-foreground/80 font-heading italic text-lg md:text-xl mb-6">
               It's a life you return to.
             </p>
-            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-3">
-              <Button variant="hero" size="lg">Book Site Visit</Button>
-              <Button variant="hero-outline" size="lg">Download Brochure</Button>
-            </div>
+           
           </div>
 
-          {/* Right: Stats */}
-          <div ref={statsRef} className="flex gap-8 md:gap-12">
-            {stats.map((s) => (
-              <div key={s.label} className="text-right">
-                <p className="text-3xl md:text-5xl font-heading text-primary-foreground leading-none mb-1 italic">
-                  {s.value}
-                </p>
-                <p className="text-[10px] md:text-xs text-primary-foreground/70 font-body tracking-[0.15em] uppercase">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </div>
+        
         </div>
       </div>
     </section>

@@ -53,12 +53,12 @@ const advantages = [
   {
     icon: sketchIcons.location,
     title: "Well Within Reach",
-    desc: "90 mins from Bangalore Airport • 60 mins from MG Road • 30 mins from Whitefield",
+    desc: "120 mins from Bangalore Airport • 85 mins from MG Road • 105 mins from Whitefield",
   },
   {
     icon: sketchIcons.farmhouse,
-    title: "Designed. Built. Ready.",
-    desc: "Curated farmhouses designed and constructed as per your needs and preferences.",
+    title: "Design & Build",
+    desc: "design your farmhouse and build at your convenience.",
   },
   {
     icon: sketchIcons.bed,

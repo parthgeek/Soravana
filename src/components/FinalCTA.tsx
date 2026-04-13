@@ -20,9 +20,7 @@ const FinalCTA = () => (
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-            <Button variant="hero" size="lg">Book Site Visit</Button>
-          </motion.div>
+          
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Button variant="hero-outline" size="lg" className="border-accent text-foreground">
               <Phone className="w-4 h-4" />
