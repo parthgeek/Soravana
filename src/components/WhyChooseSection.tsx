@@ -10,7 +10,7 @@ const sketchCheck = (
 
 const reasons = [
   "Professionally managed organic farming with expert agronomists",
-  "100% legally verified with clear titles and documentation",
+  "100% legally verified with RERA-compliant documentation and transparent ownership.",
   "Premium amenities: Nature Lounge, cottages and more",
   "Approx. 85-120 minutes from key Bangalore hubs",
   "Complete freedom to design and build your dream home",

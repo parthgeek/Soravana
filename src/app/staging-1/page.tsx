@@ -6,7 +6,7 @@ import AboutSection from "@/components/AboutSection";
 import OverviewSection from "@/components/OverviewSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import AmenitiesSection from "@/components/AmenitiesSection";
-import AdvantageSection from "@/components/AdvantageSection";
+import AdvantageSectionStaging1 from "@/components/AdvantageSectionStaging1";
 import InvestmentSection from "@/components/InvestmentSection";
 import FarmingSection from "@/components/FarmingSection";
 import SustainabilitySection from "@/components/SustainabilitySection";
@@ -14,8 +14,7 @@ import WhyChooseSection from "@/components/WhyChooseSection";
 import StaySection from "@/components/StaySection";
 import BuildSection from "@/components/BuildSection";
 import BuildFreedomSection from "@/components/BuildFreedomSection";
-import TeamSection from "@/components/TeamSection";
-import TrustSection from "@/components/TrustSection";
+import TeamSectionStaging1 from "@/components/TeamSectionStaging1";
 import GallerySection from "@/components/GallerySection";
 import BrochureSection from "@/components/BrochureSection";
 import LocationSection from "@/components/LocationSection";
@@ -34,7 +33,7 @@ export default function StagingHomePageV1() {
       <AboutSection />
       <StaySection />
       
-      <AdvantageSection />
+      <AdvantageSectionStaging1 />
       <OverviewSection />
       <ExperienceSection />
       <AmenitiesSection />
@@ -44,8 +43,7 @@ export default function StagingHomePageV1() {
       <WhyChooseSection />
       <BuildSection />
       <BuildFreedomSection />
-      <TeamSection />
-      <TrustSection />
+      <TeamSectionStaging1 />
      
       <BrochureSection />
       <LocationSection />
