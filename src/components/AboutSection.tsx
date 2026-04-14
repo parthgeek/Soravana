@@ -1,6 +1,7 @@
 const items = [
   {
     title: "Own",
+    image: "/assets/hero-farmland.jpg",
     desc: "Individually owned 5,000 sq. ft. farmland plots with clear titles.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -31,6 +32,7 @@ const items = [
   },
   {
     title: "Farm",
+    image: "/assets/farming.jpg",
     desc: "Grow your own food or opt for managed farming support.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -68,6 +70,7 @@ const items = [
   },
   {
     title: "Build",
+    image: "/assets/farmhouse.jpg",
     desc: "Design and build your farmhouse at your own pace.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -104,6 +107,7 @@ const items = [
   },
   {
     title: "Belong",
+    image: "/assets/community.jpg",
     desc: "Be part of a like-minded community that values nature and simplicity.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -147,6 +151,7 @@ const items = [
 
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const AboutSection = () => (
   <section id="about" className="py-24 bg-background">
@@ -170,11 +175,19 @@ const AboutSection = () => (
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="w-32 h-32 md:w-36 md:h-36 mx-auto mb-5 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors"
+                className="w-32 h-32 md:w-36 md:h-36 mx-auto mb-5 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors relative overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                {item.sketch}
+                <span className="transition-opacity duration-300 group-hover:opacity-0 flex items-center justify-center">
+                  {item.sketch}
+                </span>
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
               </motion.div>
               <h3 className="text-xl font-heading mb-2">{item.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
