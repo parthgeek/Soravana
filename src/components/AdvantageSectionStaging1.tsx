@@ -1,5 +1,10 @@
 import { motion } from "framer-motion";
-import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
+import AnimateIn from "@/components/AnimateIn";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+};
 
 const sketchIcons = {
   location: (
@@ -186,11 +191,18 @@ const AdvantageSectionStaging1 = () => (
           Everything you need for a sustainable, connected, and fulfilling lifestyle — all in one place.
         </p>
       </AnimateIn>
-      <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {advantages.map((a) => (
-          <StaggerChild key={a.title}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {advantages.map((a, i) => (
+          <motion.div
+            key={a.title}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+          >
             <motion.div
-              className="bg-card rounded-xl p-6 border border-border hover:shadow-md transition-shadow group"
+              className="bg-card rounded-xl p-6 border border-border hover:shadow-md transition-shadow group h-full"
               whileHover={{ y: -5 }}
               transition={{ duration: 0.25 }}
             >
@@ -204,9 +216,9 @@ const AdvantageSectionStaging1 = () => (
               <h3 className="font-heading text-lg mb-2">{a.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{a.desc}</p>
             </motion.div>
-          </StaggerChild>
+          </motion.div>
         ))}
-      </StaggerParent>
+      </div>
 
       <motion.div
         className="mt-8 bg-card rounded-xl p-6 md:p-8 border border-border shadow-sm"

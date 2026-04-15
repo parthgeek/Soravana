@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Farming", href: "#farming" },
-  { label: "Location", href: "#location" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/staging" },
+  { label: "About", href: "/staging/about" },
+  { label: "Location", href: "/staging/location" },
+  { label: "Contact", href: "/staging/contact" },
 ];
 
 const Navbar = () => {
@@ -36,21 +35,24 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center justify-between py-3 px-6 md:px-8">
-          <a href="#home" className="font-heading text-xl tracking-[0.15em] text-accent">
+          <Link href="/staging" className="font-heading text-xl tracking-[0.15em] text-accent">
             SORAVANA
-          </a>
+          </Link>
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (
-              <motion.a
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors"
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.07, duration: 0.4 }}
               >
-                {link.label}
-              </motion.a>
+                <Link
+                  href={link.href}
+                  className="text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
           </div>
           <button
@@ -83,17 +85,20 @@ const Navbar = () => {
             >
               <div className="px-6 pb-4 pt-3 space-y-1">
                 {navLinks.map((link, i) => (
-                  <motion.a
+                  <motion.div
                     key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-2"
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05, duration: 0.25 }}
                   >
-                    {link.label}
-                  </motion.a>
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-2"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
