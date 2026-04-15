@@ -45,6 +45,7 @@ type PlaybackState = { playlist: number[]; cursor: number };
 
 const HeroSection = () => {
   const [firstVideoReady, setFirstVideoReady] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(0);
   const [playbackState, setPlaybackState] = useState<PlaybackState>(() => ({
     playlist: buildPlaylist(),
     cursor: 0,
@@ -77,6 +78,15 @@ const HeroSection = () => {
         cursor: 0,
       };
     });
+  };
+
+  const jumpToVideo = (index: number) => {
+    if (index === currentVideoIndex) return;
+    isAdvancingRef.current = false;
+    const remaining = shuffleArray(
+      heroVideos.map((_, i) => i).filter((i) => i !== index && !failedVideoIndexesRef.current.has(i))
+    );
+    setPlaybackState({ playlist: [index, ...remaining], cursor: 0 });
   };
 
   // Intro animation
@@ -145,11 +155,16 @@ const HeroSection = () => {
     };
   }, [currentVideo]);
 
+  useEffect(() => {
+    setVideoProgress(0);
+  }, [currentVideo]);
+
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     const activeVideo = activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
-    if (video !== activeVideo || video.currentTime < maxPlaybackSeconds) return;
-    advanceToNextVideo();
+    if (video !== activeVideo) return;
+    setVideoProgress(Math.min(video.currentTime / maxPlaybackSeconds, 1));
+    if (video.currentTime >= maxPlaybackSeconds) advanceToNextVideo();
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -211,6 +226,33 @@ const HeroSection = () => {
         >
           Premium Managed Farmland • Near Bangalore
         </span>
+      </div>
+
+      {/* Video dots navigation */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        {heroVideos.map((_, i) => {
+          const isActive = i === currentVideoIndex;
+          return (
+            <button
+              key={i}
+              onClick={() => jumpToVideo(i)}
+              aria-label={`Play video ${i + 1}`}
+              className={`relative overflow-hidden rounded-full transition-all duration-300 ${
+                isActive ? "w-8 h-2" : "w-2 h-2 bg-white/50 hover:bg-white/80"
+              }`}
+            >
+              {isActive && (
+                <>
+                  <span className="absolute inset-0 rounded-full bg-white/40" />
+                  <span
+                    className="absolute inset-y-0 left-0 rounded-full bg-white"
+                    style={{ width: `${videoProgress * 100}%` }}
+                  />
+                </>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Bottom content */}
