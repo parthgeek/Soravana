@@ -13,80 +13,34 @@ const heroVideos = [
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
 
-const shuffleArray = (items: number[]) => {
-  const shuffled = [...items];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
-const buildPlaylist = (
-  previousVideoIndex?: number,
-  excludedVideoIndexes: number[] = []
-) => {
-  const excluded = new Set(excludedVideoIndexes);
-  const shuffled = shuffleArray(
-    heroVideos.map((_, i) => i).filter((i) => !excluded.has(i))
-  );
-  if (
-    typeof previousVideoIndex === "number" &&
-    heroVideos.length > 1 &&
-    shuffled[0] === previousVideoIndex
-  ) {
-    const next = shuffled.findIndex((i) => i !== previousVideoIndex);
-    if (next > 0) [shuffled[0], shuffled[next]] = [shuffled[next], shuffled[0]];
-  }
-  return shuffled;
-};
-
-type PlaybackState = { playlist: number[]; cursor: number };
-
 const HeroSection = () => {
   const [firstVideoReady, setFirstVideoReady] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
-  const [playbackState, setPlaybackState] = useState<PlaybackState>(() => ({
-    playlist: buildPlaylist(),
-    cursor: 0,
-  }));
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const videoARef = useRef<HTMLVideoElement>(null);
   const videoBRef = useRef<HTMLVideoElement>(null);
   const activeSlotRef = useRef<"a" | "b">("a");
   const firstLoadDoneRef = useRef(false);
   const isAdvancingRef = useRef(false);
-  const failedVideoIndexesRef = useRef<Set<number>>(new Set());
 
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const currentVideoIndex = playbackState.playlist[playbackState.cursor] ?? 0;
-  const currentVideo = heroVideos[currentVideoIndex] ?? heroVideos[0];
+  const currentVideo = heroVideos[currentIndex];
 
   const advanceToNextVideo = () => {
     if (isAdvancingRef.current) return;
     isAdvancingRef.current = true;
-    setPlaybackState((s) => {
-      if (s.cursor < s.playlist.length - 1) {
-        return { ...s, cursor: s.cursor + 1 };
-      }
-      return {
-        playlist: buildPlaylist(s.playlist[s.cursor], Array.from(failedVideoIndexesRef.current)),
-        cursor: 0,
-      };
-    });
+    setCurrentIndex((i) => (i + 1) % heroVideos.length);
   };
 
   const jumpToVideo = (index: number) => {
-    if (index === currentVideoIndex) return;
+    if (index === currentIndex) return;
     isAdvancingRef.current = false;
-    const remaining = shuffleArray(
-      heroVideos.map((_, i) => i).filter((i) => i !== index && !failedVideoIndexesRef.current.has(i))
-    );
-    setPlaybackState({ playlist: [index, ...remaining], cursor: 0 });
+    setCurrentIndex(index);
   };
 
   // Intro animation
@@ -103,13 +57,14 @@ const HeroSection = () => {
     return () => ctx.revert();
   }, []);
 
-  // Crossfade video loading — two-slot A/B swap, no image flash between videos
+  // Crossfade video loading — two-slot A/B swap
   useEffect(() => {
     const videoA = videoARef.current;
     const videoB = videoBRef.current;
     if (!videoA || !videoB) return;
 
     isAdvancingRef.current = false;
+    setVideoProgress(0);
 
     const isFirstLoad = !firstLoadDoneRef.current;
     const targetSlot = isFirstLoad ? "a" : activeSlotRef.current === "a" ? "b" : "a";
@@ -155,10 +110,6 @@ const HeroSection = () => {
     };
   }, [currentVideo]);
 
-  useEffect(() => {
-    setVideoProgress(0);
-  }, [currentVideo]);
-
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     const activeVideo = activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
@@ -171,10 +122,7 @@ const HeroSection = () => {
     const video = e.currentTarget;
     const activeVideo = activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
     if (video !== activeVideo) return;
-    failedVideoIndexesRef.current.add(currentVideoIndex);
-    if (failedVideoIndexesRef.current.size < heroVideos.length) {
-      advanceToNextVideo();
-    }
+    advanceToNextVideo();
   };
 
   return (
@@ -231,7 +179,7 @@ const HeroSection = () => {
       {/* Video dots navigation */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {heroVideos.map((_, i) => {
-          const isActive = i === currentVideoIndex;
+          const isActive = i === currentIndex;
           return (
             <button
               key={i}
