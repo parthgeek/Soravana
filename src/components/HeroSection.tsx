@@ -5,8 +5,8 @@ import gsap from "gsap";
 
 const heroImg = "/assets/hero-original.jpg";
 const heroVideos = [
-    "/assets/timelapse.mp4",
-    "/assets/sunrise.mp4",
+  "/assets/timelapse.mp4",
+  "/assets/sunrise.mp4",
   "/herosection.mp4",
   "/farm.mp4",
   "/assets/cow_grazing.mp4",
@@ -15,7 +15,6 @@ const heroVideos = [
   "/assets/tl2.mp4",
   "/assets/rain2.mp4",
   "/assets/rain3.mp4",
-
 ];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
@@ -30,6 +29,7 @@ const HeroSection = () => {
   const activeSlotRef = useRef<"a" | "b">("a");
   const firstLoadDoneRef = useRef(false);
   const isAdvancingRef = useRef(false);
+  const isTransitioningRef = useRef(false);
 
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -38,15 +38,24 @@ const HeroSection = () => {
 
   const currentVideo = heroVideos[currentIndex];
 
+  const getActiveVideo = () =>
+    activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
+
+  const isActiveVideoEvent = (video: HTMLVideoElement) =>
+    !isTransitioningRef.current && video === getActiveVideo();
+
   const advanceToNextVideo = () => {
-    if (isAdvancingRef.current) return;
+    if (isAdvancingRef.current || isTransitioningRef.current) return;
     isAdvancingRef.current = true;
+    isTransitioningRef.current = true;
     setCurrentIndex((i) => (i + 1) % heroVideos.length);
   };
 
   const jumpToVideo = (index: number) => {
     if (index === currentIndex) return;
+    getActiveVideo()?.pause();
     isAdvancingRef.current = false;
+    isTransitioningRef.current = true;
     setCurrentIndex(index);
   };
 
@@ -84,6 +93,7 @@ const HeroSection = () => {
       handled = true;
       targetVideo.removeEventListener("canplay", handleCanPlay);
 
+      targetVideo.currentTime = 0;
       void targetVideo.play().catch(() => {});
 
       if (isFirstLoad) {
@@ -102,6 +112,8 @@ const HeroSection = () => {
         });
       }
       activeSlotRef.current = targetSlot;
+      isTransitioningRef.current = false;
+      isAdvancingRef.current = false;
     };
 
     targetVideo.addEventListener("canplay", handleCanPlay);
@@ -119,16 +131,19 @@ const HeroSection = () => {
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
-    const activeVideo = activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
-    if (video !== activeVideo) return;
+    if (!isActiveVideoEvent(video)) return;
     setVideoProgress(Math.min(video.currentTime / maxPlaybackSeconds, 1));
     if (video.currentTime >= maxPlaybackSeconds) advanceToNextVideo();
   };
 
+  const handleEnded = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    if (!isActiveVideoEvent(e.currentTarget)) return;
+    advanceToNextVideo();
+  };
+
   const handleError = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
-    const activeVideo = activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
-    if (video !== activeVideo) return;
+    if (!isActiveVideoEvent(video)) return;
     advanceToNextVideo();
   };
 
@@ -153,7 +168,7 @@ const HeroSection = () => {
         playsInline
         preload="auto"
         aria-hidden="true"
-        onEnded={advanceToNextVideo}
+        onEnded={handleEnded}
         onError={handleError}
         onTimeUpdate={handleTimeUpdate}
       />
@@ -166,7 +181,7 @@ const HeroSection = () => {
         playsInline
         preload="auto"
         aria-hidden="true"
-        onEnded={advanceToNextVideo}
+        onEnded={handleEnded}
         onError={handleError}
         onTimeUpdate={handleTimeUpdate}
       />
@@ -189,9 +204,11 @@ const HeroSection = () => {
           const isActive = i === currentIndex;
           return (
             <button
+              type="button"
               key={i}
               onClick={() => jumpToVideo(i)}
               aria-label={`Play video ${i + 1}`}
+              aria-pressed={isActive}
               className={`relative overflow-hidden rounded-full transition-all duration-300 ${
                 isActive ? "w-8 h-2" : "w-2 h-2 bg-white/50 hover:bg-white/80"
               }`}
