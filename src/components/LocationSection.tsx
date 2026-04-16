@@ -5,6 +5,7 @@ const distances = [
   { time: "85", label: "Minutes from MG Road" },
   { time: "105", label: "Minutes from Whitefield" },
   { time: "25", label: "Minutes to Kanakapura Town" },
+  { time: "65", label: "Minutes to Art of Living Ashram" },
 ];
 
 const LocationSection = () => (
@@ -20,7 +21,7 @@ const LocationSection = () => (
       </p>
 
       {/* Distance highlights */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-12">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 max-w-4xl mx-auto mb-12">
         {distances.map((d) => (
           <div key={d.label} className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">

@@ -221,25 +221,36 @@ const AdvantageSectionStaging1 = () => (
       </div>
 
       <motion.div
-        className="mt-8 bg-card rounded-xl p-6 md:p-8 border border-border shadow-sm"
-        initial={{ opacity: 0, y: 16 }}
+        className="mt-10 rounded-2xl border border-border bg-card overflow-hidden shadow-sm"
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="mb-5">
-          <h3 className="font-heading text-2xl mb-1">Nearby Famous Places</h3>
-
+        <div className="px-6 md:px-8 pt-7 pb-5 border-b border-border">
+          <h3 className="font-heading text-2xl md:text-3xl mb-1">Nearby Famous Places</h3>
+          <p className="text-muted-foreground text-sm">Natural wonders within easy reach of Soravana</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 p-4 md:p-6">
           {famousPlaces.map((place) => (
-            <div key={place.title} className="rounded-lg border border-border bg-background px-4 py-4">
-              <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary">
+            <motion.div
+              key={place.title}
+              className="relative rounded-xl border border-border bg-background p-4 group hover:border-accent/40 transition-all duration-200 hover:shadow-sm"
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:bg-primary/20 transition-colors shrink-0">
                 {place.icon}
               </div>
-              <p className="font-heading text-lg mb-1">{place.title}</p>
-              <p className="text-muted-foreground text-sm">{place.desc}</p>
-            </div>
+              <p className="font-heading text-sm md:text-base leading-snug mb-2">{place.title}</p>
+              <span className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                <svg viewBox="0 0 16 16" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="8" cy="8" r="6" />
+                  <path d="M8 5 V8 L10 10" />
+                </svg>
+                {place.desc}
+              </span>
+            </motion.div>
           ))}
         </div>
       </motion.div>
