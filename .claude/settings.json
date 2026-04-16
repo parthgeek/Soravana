@@ -4,7 +4,8 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm build:*)",
       "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/assets/*.mp4)",
-      "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4)"
+      "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4)",
+      "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4 /Users/parthsharma/projects/nature-rooted-life/public/*.MP4)"
     ]
   }
 }

@@ -8,7 +8,8 @@ const heroVideos = [
   "/herosection.mp4",
   "/farm.mp4",
   "/assets/cow_grazing.mp4",
-  "/assets/AZ2V1ruscmNrkHeLdAdbfQ-AZ2V1rusLqFYwtrA_p4XjA.mp4"
+  "/assets/AZ2V1ruscmNrkHeLdAdbfQ-AZ2V1rusLqFYwtrA_p4XjA.mp4",
+  "/assets/playing.mp4",
 ];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
