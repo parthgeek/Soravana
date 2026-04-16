@@ -229,7 +229,7 @@ const AdvantageSectionStaging1 = () => (
       >
         <div className="mb-5">
           <h3 className="font-heading text-2xl mb-1">Nearby Famous Places</h3>
-          <p className="text-sm text-muted-foreground">Grouped in one block as requested.</p>
+
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {famousPlaces.map((place) => (
