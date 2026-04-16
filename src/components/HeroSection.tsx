@@ -6,8 +6,7 @@ import gsap from "gsap";
 const heroImg = "/assets/hero-original.jpg";
 const heroVideos = [
   "/herosection.mp4",
-  "/assets/farming.mp4",
-  "/assets/70465-538463762_medium.mp4",
+  "/farm.mp4",
   "/assets/cow_grazing.mp4",
   "/assets/AZ2V1ruscmNrkHeLdAdbfQ-AZ2V1rusLqFYwtrA_p4XjA.mp4"
 ];
