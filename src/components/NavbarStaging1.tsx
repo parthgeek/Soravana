@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Home", href: "/staging-1" },
@@ -35,7 +36,8 @@ const NavbarStaging1 = () => {
         }`}
       >
         <div className="flex items-center justify-between py-3 px-6 md:px-8">
-          <Link href="/staging-1" className="font-heading text-xl tracking-[0.15em] text-accent">
+          <Link href="/staging-1" className="flex items-center gap-2 font-heading text-xl tracking-[0.15em] text-accent">
+            <Image src="/favicon.png" alt="Soravana Logo" width={64} height={64} className="rounded-sm" />
             SORAVANA
           </Link>
           <div className="hidden md:flex items-center gap-8">

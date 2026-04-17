@@ -6,11 +6,9 @@ export const metadata: Metadata = {
   title: "Soravana Farmland",
   description: "Premium managed farmland community near Bangalore.",
   icons: {
-    icon: [
-      { url: "/favicon.png", type: "image/png" },
-    ],
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "../soravana2.png",
+    shortcut: "../soravana2.png",
+    apple: "../soravana2.png",
   },
 };
 

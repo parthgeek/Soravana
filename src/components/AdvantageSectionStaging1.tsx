@@ -1,5 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import AnimateIn from "@/components/AnimateIn";
+import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
@@ -147,33 +151,138 @@ const famousPlaces = [
     icon: sketchIcons.waterfall,
     title: "Chunchi Falls",
     desc: "Approx. 10 mins drive",
+    mapUrl: "https://maps.google.com/?q=Chunchi+Falls+Karnataka",
+    images: [
+      "/assets/place-chunchi-1.jpg",
+      "/assets/place-chunchi-2.jpg",
+      "/assets/place-chunchi-3.jpg",
+    ],
   },
   {
     icon: sketchIcons.confluence,
     title: "Kaveri Sangama",
     desc: "Approx. 15 mins drive",
+    mapUrl: "https://maps.google.com/?q=Kaveri+Sangama+Kanakapura",
+    images: [
+      "/assets/place-kaveri-1.jpg",
+      "/assets/place-kaveri-2.jpg",
+      "/assets/place-kaveri-3.jpg",
+    ],
   },
   {
     icon: sketchIcons.gorge,
     title: "Mekedatu",
     desc: "Approx. 45 mins drive",
+    mapUrl: "https://maps.google.com/?q=Mekedatu+Karnataka",
+    images: [
+      "/assets/place-mekedatu-1.jpg",
+      "/assets/place-mekedatu-2.jpg",
+      "/assets/place-mekedatu-3.jpg",
+    ],
   },
   {
     icon: sketchIcons.hill,
     title: "Bilikal Rangaswamy Betta",
     desc: "Approx. 55 mins drive",
+    mapUrl: "https://maps.google.com/?q=Bilikal+Rangaswamy+Betta+Karnataka",
+    images: [
+      "/assets/place-bilikal-1.jpg",
+      "/assets/place-bilikal-2.jpg",
+      "/assets/place-bilikal-3.jpg",
+    ],
   },
   {
     icon: sketchIcons.pyramid,
     title: "Pyramid Valley",
     desc: "Approx. 50 mins drive",
+    mapUrl: "https://maps.google.com/?q=Pyramid+Valley+International+Bangalore",
+    images: [
+      "/assets/place-pyramid-1.jpg",
+      "/assets/place-pyramid-2.jpg",
+      "/assets/place-pyramid-3.jpg",
+    ],
   },
   {
     icon: sketchIcons.ashram,
     title: "Art of Living Intl. Center",
     desc: "Approx. 65 mins drive",
+    mapUrl: "https://maps.google.com/?q=Art+of+Living+International+Center+Bangalore",
+    images: [
+      "/assets/place-aol-1.jpg",
+      "/assets/place-aol-2.jpg",
+      "/assets/place-aol-3.jpg",
+    ],
   },
 ];
+
+function PlaceCard({ place }: { place: typeof famousPlaces[0] }) {
+  const [hovered, setHovered] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (place.images.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setSlideIndex((prev) => (prev + 1) % place.images.length);
+      }, 3000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [place.images.length]);
+
+  return (
+    <motion.a
+      href={place.mapUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative rounded-xl border border-border bg-background overflow-hidden group cursor-pointer hover:border-accent/40 transition-all duration-200 hover:shadow-sm block"
+      whileHover={{ y: -3 }}
+      transition={{ duration: 1 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Continuous slideshow — hidden on hover */}
+      <div className={`absolute inset-0 transition-opacity duration-300 ${hovered ? "opacity-0" : "opacity-100"}`}>
+        {place.images.map((src, i) => (
+          <Image
+            key={src}
+            src={src}
+            alt={place.title}
+            fill
+            className={`object-cover transition-opacity duration-500 ${i === slideIndex ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-black/40" />
+        {place.images.length > 1 && (
+          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
+            {place.images.map((_, i) => (
+              <span
+                key={i}
+                className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-200 ${i === slideIndex ? "bg-white scale-125" : "bg-white/50"}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Normal card content — white over images, accent green on hover */}
+      <div className="relative z-10 p-4">
+        <div className="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center mb-3 text-white group-hover:bg-primary/20 group-hover:text-accent transition-colors shrink-0">
+          {place.icon}
+        </div>
+        <p className="font-heading text-sm md:text-base leading-snug mb-2 text-white group-hover:text-accent transition-colors duration-300">{place.title}</p>
+        <span className="inline-flex items-center gap-1 bg-white/20 text-white group-hover:bg-accent/10 group-hover:text-accent text-[11px] font-semibold px-2.5 py-1 rounded-full transition-colors duration-300">
+          <svg viewBox="0 0 16 16" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="8" cy="8" r="6" />
+            <path d="M8 5 V8 L10 10" />
+          </svg>
+          {place.desc}
+        </span>
+      </div>
+    </motion.a>
+  );
+}
 
 const AdvantageSectionStaging1 = () => (
   <section className="py-24 bg-background">
@@ -233,24 +342,7 @@ const AdvantageSectionStaging1 = () => (
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 p-4 md:p-6">
           {famousPlaces.map((place) => (
-            <motion.div
-              key={place.title}
-              className="relative rounded-xl border border-border bg-background p-4 group hover:border-accent/40 transition-all duration-200 hover:shadow-sm"
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:bg-primary/20 transition-colors shrink-0">
-                {place.icon}
-              </div>
-              <p className="font-heading text-sm md:text-base leading-snug mb-2">{place.title}</p>
-              <span className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                <svg viewBox="0 0 16 16" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="8" cy="8" r="6" />
-                  <path d="M8 5 V8 L10 10" />
-                </svg>
-                {place.desc}
-              </span>
-            </motion.div>
+            <PlaceCard key={place.title} place={place} />
           ))}
         </div>
       </motion.div>
