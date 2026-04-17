@@ -13,10 +13,10 @@ export default function ContactPage() {
   return (
     <>
       <NavbarStaging1 />
-      <InvestmentSection />
-      <PricingCTA />
       <ContactForm />
+      <PricingCTA />
       <FAQSection />
+      <InvestmentSection />
       <FinalCTA />
       <Footer />
       <WhatsAppButton />
