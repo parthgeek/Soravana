@@ -5,7 +5,19 @@
       "Bash(pnpm build:*)",
       "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/assets/*.mp4)",
       "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4)",
-      "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4 /Users/parthsharma/projects/nature-rooted-life/public/*.MP4)"
+      "Bash(ls /Users/parthsharma/projects/nature-rooted-life/public/*.mp4 /Users/parthsharma/projects/nature-rooted-life/public/*.MP4)",
+      "Bash(cp soravana2.png /tmp/logo-src.png)",
+      "Bash(sips -p 1536 1536 --padColor FFFFFF /tmp/logo-src.png --out /tmp/logo-square.png)",
+      "Bash(sips -z 512 512 /tmp/logo-square.png --out src/app/icon.png)",
+      "Bash(npx tsc *)",
+      "Bash(python3 -c \"import rembg\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('ok'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -c \"import numpy; print\\(numpy.__version__\\)\")",
+      "Bash(python3 /tmp/bg_remove.py soravana2.png src/app/icon.png 512 40)"
+    ],
+    "additionalDirectories": [
+      "/private/tmp"
     ]
   }
 }
