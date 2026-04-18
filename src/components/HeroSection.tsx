@@ -194,7 +194,7 @@ const HeroSection = () => {
           ref={badgeRef}
           className="inline-block rounded-full bg-black/35 px-4 py-2 text-primary-foreground font-body font-semibold text-xs md:text-sm tracking-[0.25em] uppercase shadow-sm backdrop-blur-[2px]"
         >
-          Premium Managed Farmland • Near Bangalore
+          Premium Managed Farmland • Near Bengaluru
         </span>
       </div>
 

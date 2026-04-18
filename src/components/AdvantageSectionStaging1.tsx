@@ -96,19 +96,26 @@ const sketchIcons = {
       <path d="M4 32 H36" strokeDasharray="3 2" />
     </svg>
   ),
-  pyramid: (
+  temple: (
     <svg viewBox="0 0 40 40" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 6 L6 34 H34 Z" />
-      <path d="M20 6 V34" />
-      <path d="M12 24 H28" />
+      <path d="M8 34 H32" strokeDasharray="3 2" />
+      <path d="M14 34 V18" />
+      <path d="M26 34 V18" />
+      <path d="M14 18 H26" />
+      <path d="M20 8 L24 14 H16 Z" />
+      <path d="M20 14 V18" />
+      <path d="M17 34 V25 H23 V34" />
     </svg>
   ),
-  ashram: (
+  meditation: (
     <svg viewBox="0 0 40 40" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 34 V22 L20 14 L30 22 V34" />
-      <path d="M6 22 L20 10 L34 22" />
-      <rect x="17" y="25" width="6" height="9" rx="0.5" />
-      <path d="M8 34 H32" strokeDasharray="3 2" />
+      <circle cx="20" cy="9.5" r="3.5" />
+      <path d="M20 13 V19" />
+      <path d="M13 19 C15.5 17 17.5 16 20 16 C22.5 16 24.5 17 27 19" />
+      <path d="M12 25 C15 22.5 17.5 21.5 20 21.5 C22.5 21.5 25 22.5 28 25" />
+      <path d="M10 29 C13 31.5 16 33 20 33 C24 33 27 31.5 30 29" />
+      <path d="M15 25 L11 31" />
+      <path d="M25 25 L29 31" />
     </svg>
   ),
 };
@@ -117,7 +124,7 @@ const advantages = [
   {
     icon: sketchIcons.location,
     title: "Well Within Reach",
-    desc: "120 mins from Bangalore Airport • 85 mins from MG Road • 105 mins from Whitefield",
+    desc: "120 mins from Bengaluru Airport • 85 mins from MG Road • 105 mins from Whitefield",
   },
   {
     icon: sketchIcons.farmhouse,
@@ -147,6 +154,17 @@ const advantages = [
 ];
 
 const famousPlaces = [
+  {
+    icon: sketchIcons.meditation,
+    title: "Art of Living Intl. Center",
+    desc: "Approx. 65 mins drive",
+    mapUrl: "https://maps.google.com/?q=Art+of+Living+International+Center+Bengaluru",
+    images: [
+      "/assets/place-aol-1.jpg",
+      "/assets/place-aol-2.jpg",
+      "/assets/place-aol-3.jpg",
+    ],
+  },
   {
     icon: sketchIcons.waterfall,
     title: "Chunchi Falls",
@@ -192,25 +210,14 @@ const famousPlaces = [
     ],
   },
   {
-    icon: sketchIcons.pyramid,
-    title: "Pyramid Valley",
-    desc: "Approx. 50 mins drive",
-    mapUrl: "https://maps.google.com/?q=Pyramid+Valley+International+Bangalore",
+    icon: sketchIcons.temple,
+    title: "Shri Elagalli Taayi Muddamma Temple",
+    desc: "Helagahalli, near Kanakapura",
+    mapUrl: "https://maps.google.com/?q=Elagalli+Thayi+Muddammana+Devasthana+Helagahalli+Ramanagara",
     images: [
-      "/assets/place-pyramid-1.jpg",
-      "/assets/place-pyramid-2.jpg",
-      "/assets/place-pyramid-3.jpg",
-    ],
-  },
-  {
-    icon: sketchIcons.ashram,
-    title: "Art of Living Intl. Center",
-    desc: "Approx. 65 mins drive",
-    mapUrl: "https://maps.google.com/?q=Art+of+Living+International+Center+Bangalore",
-    images: [
-      "/assets/place-aol-1.jpg",
-      "/assets/place-aol-2.jpg",
-      "/assets/place-aol-3.jpg",
+      "/assets/place-muddamma-1.webp",
+      "/assets/place-muddamma-2.jpg",
+      "/assets/place-muddamma-3.jpg",
     ],
   },
 ];

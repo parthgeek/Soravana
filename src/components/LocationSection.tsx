@@ -1,11 +1,11 @@
 import { Car } from "lucide-react";
 
 const distances = [
-  { time: "120", label: "Minutes from Bangalore Airport" },
+  { time: "120", label: "Minutes from Bengaluru Airport" },
   { time: "85", label: "Minutes from MG Road" },
   { time: "105", label: "Minutes from Whitefield" },
   { time: "25", label: "Minutes to Kanakapura Town" },
-  { time: "65", label: "Minutes to Art of Living Ashram" },
+  { time: "65", label: "Minutes to The Art of Living Ashram" },
 ];
 
 const LocationSection = () => (
@@ -17,7 +17,7 @@ const LocationSection = () => (
       <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
       <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
         CHANDUSURYA HOUSE, 9C3H+PQ2, Nallahalli Doddi, Karnataka 562117.
-        A serene location with practical access to key Bangalore zones.
+        A serene location with practical access to key Bengaluru zones.
       </p>
 
       {/* Distance highlights */}

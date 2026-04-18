@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 
 const benefits = [
-  { icon: TrendingUp, title: "Appreciating Asset", desc: "Farmland near Bangalore appreciates steadily — outperforming many traditional investments." },
+  { icon: TrendingUp, title: "Appreciating Asset", desc: "Farmland near Bengaluru appreciates steadily — outperforming many traditional investments." },
   { icon: Shield, title: "Clear Legal Titles", desc: "100% legally verified with RERA-compliant documentation and transparent ownership." },
   { icon: Leaf, title: "Passive Organic Income", desc: "Earn from managed organic farming — fruits, vegetables, and timber plantations." },
   { icon: Landmark, title: "Tangible Ownership", desc: "Unlike stocks or crypto, you own real land you can see, visit, and build on." },

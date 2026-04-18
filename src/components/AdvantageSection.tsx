@@ -53,7 +53,7 @@ const advantages = [
   {
     icon: sketchIcons.location,
     title: "Well Within Reach",
-    desc: "120 mins from Bangalore Airport • 85 mins from MG Road • 105 mins from Whitefield",
+    desc: "120 mins from Bengaluru Airport • 85 mins from MG Road • 105 mins from Whitefield",
   },
   {
     icon: sketchIcons.farmhouse,

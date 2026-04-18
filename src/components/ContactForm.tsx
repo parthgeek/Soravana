@@ -75,6 +75,14 @@ const ContactForm = () => {
             {loading ? "Sending..." : "Send Enquiry"}
           </Button>
         </form>
+        <div className="mt-8 text-center">
+          <p className="text-3xl md:text-3xl font-heading text-foreground">
+            Experience Soravana Before You Own It
+          </p>
+          <p className="text-muted-foreground mt-3">
+            Visit the site, feel the space, and discover a better way of living.
+          </p>
+        </div>
       </div>
     </section>
   );

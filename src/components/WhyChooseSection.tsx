@@ -12,7 +12,7 @@ const reasons = [
   "Professionally managed organic farming with expert agronomists",
   "100% legally verified with RERA-compliant documentation and transparent ownership.",
   "Premium amenities: Nature Lounge, cottages and more",
-  "Approx. 85-120 minutes from key Bangalore hubs",
+  "Approx. 85-120 minutes from key Bengaluru hubs",
   "Complete freedom to design and build your dream home",
   "Real-time farm updates and transparent reporting",
   "Gated community with 24/7 security and CCTV",
