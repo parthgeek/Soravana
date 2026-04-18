@@ -14,7 +14,8 @@
       "Bash(python3 -c \"from PIL import Image; print\\('ok'\\)\")",
       "Bash(pip3 install *)",
       "Bash(python3 -c \"import numpy; print\\(numpy.__version__\\)\")",
-      "Bash(python3 /tmp/bg_remove.py soravana2.png src/app/icon.png 512 40)"
+      "Bash(python3 /tmp/bg_remove.py soravana2.png src/app/icon.png 512 40)",
+      "Bash(python3 -c ' *)"
     ],
     "additionalDirectories": [
       "/private/tmp"
