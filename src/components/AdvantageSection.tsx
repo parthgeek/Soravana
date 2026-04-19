@@ -63,7 +63,7 @@ const advantages = [
   {
     icon: sketchIcons.bed,
     title: "Relax & Recharge",
-    desc: "Curated cottages designed for peaceful weekend stays near the clubhouse.",
+    desc: "Curated cottages designed for peaceful weekend stays.",
   },
   {
     icon: sketchIcons.trees,

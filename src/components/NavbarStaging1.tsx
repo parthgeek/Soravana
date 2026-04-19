@@ -54,7 +54,7 @@ const NavbarStaging1 = () => {
               >
                 <Link
                   href={link.href}
-                  className="text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors"
+                  className="relative text-base font-semibold tracking-wide text-accent hover:text-accent transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {link.label}
                 </Link>
@@ -104,7 +104,7 @@ const NavbarStaging1 = () => {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="block text-sm font-body tracking-wide text-foreground/70 hover:text-accent transition-colors py-2"
+                      className="block text-base font-semibold tracking-wide text-accent hover:opacity-80 transition-colors py-2"
                     >
                       {link.label}
                     </Link>

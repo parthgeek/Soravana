@@ -19,7 +19,7 @@ const ExperienceSection = () => (
           <p className="text-muted-foreground font-body text-base md:text-lg leading-relaxed mb-4">
             Wake up to fresh air.<br />
             Spend your mornings in nature.<br />
-            Unwind with your family by the evening fire.
+            Unwind with your family by the evening Sunset.
           </p>
           <p className="text-muted-foreground/70 font-body italic text-sm md:text-base">
             A life rooted in nature, designed for you.
