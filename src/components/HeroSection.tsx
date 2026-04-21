@@ -5,14 +5,13 @@ import gsap from "gsap";
 
 const heroImg = "/assets/hero-original.jpg";
 const heroVideos = [
-  "/assets/timelapse.mp4",
   "/herosection.mp4",
-  "/farm.mp4",
+  "/assets/timelapse.mp4",
   "/assets/cow_grazing.mp4",
   "/assets/plantsh.mp4",
-  "/assets/playing.mp4",
  
-  "/assets/rain3.mp4",
+  "/assets/oranges.mp4",
+  "/assets/kids.mp4",
 ];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
