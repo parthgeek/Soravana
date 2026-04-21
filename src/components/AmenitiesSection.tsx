@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/carousel";
 
 const amenities = [
-  { img: "/assets/amenity-playground.jpg", label: "Children's Play Area" },
-  { img: "/assets/amenity-dining.jpg", label: "Outdoor Dining" },
-  { img: "/assets/amenity-garden.jpg", label: "Community Vegetable Garden" },
-  { img: "/assets/amenity-clubhouse.jpg", label: "Nature Lounge & Events" },
+  { img: "/assets/Children-play-sketch.png", label: "Children's Play Area" },
+  { img: "/assets/outdoor-dining-sketch.png", label: "Outdoor Dining" },
+  { img: "/assets/community-sketch.png", label: "Community Vegetable Garden" },
+  { img: "/assets/nlae-sketch.png", label: "Nature Lounge & Events" },
 ];
 
 const AmenitiesSection = () => (
