@@ -5,11 +5,6 @@ import Providers from "@/components/Providers";
 export const metadata: Metadata = {
   title: "Soravana Farmland",
   description: "Premium managed farmland community near Bengaluru.",
-  icons: {
-    icon: "../soravana2.png",
-    shortcut: "../soravana2.png",
-    apple: "../soravana2.png",
-  },
 };
 
 

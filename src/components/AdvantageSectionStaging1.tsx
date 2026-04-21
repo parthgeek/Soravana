@@ -123,31 +123,37 @@ const sketchIcons = {
 const advantages = [
   {
     icon: sketchIcons.location,
+    image: "/assets/gallery-aerial.jpg",
     title: "Well Within Reach",
     desc: "120 mins from Bengaluru Airport • 85 mins from MG Road • 105 mins from Whitefield",
   },
   {
     icon: sketchIcons.farmhouse,
+    image: "/assets/farmhouse.jpg",
     title: "Design & Build",
     desc: "Design your farmhouse and build at your convenience.",
   },
   {
     icon: sketchIcons.bed,
+    image: "/assets/cottage.jpg",
     title: "Relax & Recharge",
-    desc: "Curated cottages designed for peaceful weekend stays near the clubhouse.",
+    desc: "Curated cottages designed for peaceful weekend stays.",
   },
   {
     icon: sketchIcons.trees,
+    image: "/assets/gallery-trail.jpg",
     title: "Green Corridors",
     desc: "Existing plantation within a fully operational and maintained farm project.",
   },
   {
     icon: sketchIcons.shield,
+    image: "/assets/amenity-clubhouse.jpg",
     title: "Top-Tier Care",
     desc: "Managed by professionals ensuring premium quality and meticulous attention to detail.",
   },
   {
     icon: sketchIcons.sprout,
+    image: "/assets/farming.jpg",
     title: "Farming Experts On-Site",
     desc: "Design your mixed fruit orchard and organic garden with our agronomy team.",
   },
@@ -323,11 +329,20 @@ const AdvantageSectionStaging1 = () => (
               transition={{ duration: 0.25 }}
             >
               <motion.div
-                className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors text-primary"
+                className="relative w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors text-primary overflow-hidden"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.25 }}
               >
-                {a.icon}
+                <span className="transition-opacity duration-300 group-hover:opacity-0 flex items-center justify-center">
+                  {a.icon}
+                </span>
+                <Image
+                  src={a.image}
+                  alt={a.title}
+                  fill
+                  sizes="56px"
+                  className="object-cover rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
               </motion.div>
               <h3 className="font-heading text-lg mb-2">{a.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{a.desc}</p>
