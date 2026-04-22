@@ -18,7 +18,6 @@ const FADE_DURATION = 0.8;
 
 const HeroSection = () => {
   const [firstVideoReady, setFirstVideoReady] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const videoARef = useRef<HTMLVideoElement>(null);
@@ -48,14 +47,6 @@ const HeroSection = () => {
     setCurrentIndex((i) => (i + 1) % heroVideos.length);
   };
 
-  const jumpToVideo = (index: number) => {
-    if (index === currentIndex) return;
-    getActiveVideo()?.pause();
-    isAdvancingRef.current = false;
-    isTransitioningRef.current = true;
-    setCurrentIndex(index);
-  };
-
   // Intro animation
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -77,7 +68,6 @@ const HeroSection = () => {
     if (!videoA || !videoB) return;
 
     isAdvancingRef.current = false;
-    setVideoProgress(0);
 
     const isFirstLoad = !firstLoadDoneRef.current;
     const targetSlot = isFirstLoad ? "a" : activeSlotRef.current === "a" ? "b" : "a";
@@ -142,7 +132,6 @@ const HeroSection = () => {
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     if (!isActiveVideoEvent(video)) return;
-    setVideoProgress(Math.min(video.currentTime / maxPlaybackSeconds, 1));
     if (video.currentTime >= maxPlaybackSeconds) advanceToNextVideo();
   };
 
@@ -211,36 +200,6 @@ const HeroSection = () => {
           Premium Managed Farmland • Near Bengaluru
         </span>
       </div>
-
-      {/* Video dots navigation */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-        {heroVideos.map((_, i) => {
-          const isActive = i === currentIndex;
-          return (
-            <button
-              type="button"
-              key={i}
-              onClick={() => jumpToVideo(i)}
-              aria-label={`Play video ${i + 1}`}
-              aria-pressed={isActive}
-              className={`relative overflow-hidden rounded-full transition-all duration-300 ${
-                isActive ? "w-8 h-2" : "w-2 h-2 bg-white/50 hover:bg-white/80"
-              }`}
-            >
-              {isActive && (
-                <>
-                  <span className="absolute inset-0 rounded-full bg-white/40" />
-                  <span
-                    className="absolute inset-y-0 left-0 rounded-full bg-white"
-                    style={{ width: `${videoProgress * 100}%` }}
-                  />
-                </>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
       {/* Bottom content */}
       <div className="relative z-10 mt-auto pb-12 md:pb-16 px-6 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8">

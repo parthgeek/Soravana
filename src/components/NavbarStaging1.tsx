@@ -37,7 +37,7 @@ const NavbarStaging1 = () => {
       >
         <div className="flex items-center justify-between py-3 px-6 md:px-8">
           <Link href="/staging-1" className="flex items-center gap-2 font-heading text-xl tracking-[0.15em] text-accent">
-            <Image src="/favicon.png" alt="Soravana Logo" width={64} height={64} className="rounded-sm" />
+            <Image src="/favicon.png" alt="Soravana Logo" width={112} height={112} className="rounded-sm" />
             SORAVANA
           </Link>
           <div className="hidden md:flex items-center gap-8">
