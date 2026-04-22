@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const heroImg = "/assets/hero-original.jpg";
-const heroVideos = [
+const desktopHeroVideos = [
   "/assets/mist.mp4",
   "/assets/cow-on-the-grassland.mp4",
   "/assets/boy-planting-a-sapling.mp4",
@@ -12,13 +13,15 @@ const heroVideos = [
   "/assets/touching-the-plants.mp4",
   "/assets/sunrise.mp4",
 ];
-const initialHeroVideo = heroVideos[0];
+const mobileHeroVideos = [desktopHeroVideos[0]];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
 
 const HeroSection = () => {
+  const isMobile = useIsMobile();
   const [firstVideoReady, setFirstVideoReady] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [useStaticHero, setUseStaticHero] = useState(false);
 
   const videoARef = useRef<HTMLVideoElement>(null);
   const videoBRef = useRef<HTMLVideoElement>(null);
@@ -32,7 +35,9 @@ const HeroSection = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const currentVideo = heroVideos[currentIndex];
+  const heroVideos = isMobile ? mobileHeroVideos : desktopHeroVideos;
+  const shouldLoopSingleVideo = heroVideos.length === 1;
+  const currentVideo = heroVideos[currentIndex % heroVideos.length];
 
   const getActiveVideo = () =>
     activeSlotRef.current === "a" ? videoARef.current : videoBRef.current;
@@ -40,8 +45,38 @@ const HeroSection = () => {
   const isActiveVideoEvent = (video: HTMLVideoElement) =>
     !isTransitioningRef.current && video === getActiveVideo();
 
+  const prepareVideoForInlinePlayback = (video: HTMLVideoElement) => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.disablePictureInPicture = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("disablepictureinpicture", "");
+  };
+
+  const switchToStaticHero = () => {
+    isTransitioningRef.current = false;
+    isAdvancingRef.current = false;
+    setFirstVideoReady(false);
+    setUseStaticHero(true);
+
+    [videoARef.current, videoBRef.current].forEach((video) => {
+      if (!video) return;
+      gsap.set(video, { opacity: 0 });
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    });
+  };
+
   const advanceToNextVideo = () => {
-    if (isAdvancingRef.current || isTransitioningRef.current) return;
+    if (useStaticHero || shouldLoopSingleVideo || isAdvancingRef.current || isTransitioningRef.current) {
+      return;
+    }
     isAdvancingRef.current = true;
     isTransitioningRef.current = true;
     setCurrentIndex((i) => (i + 1) % heroVideos.length);
@@ -61,11 +96,33 @@ const HeroSection = () => {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    [videoARef.current, videoBRef.current].forEach((video) => {
+      if (!video) return;
+      prepareVideoForInlinePlayback(video);
+    });
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const connection = (navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    }).connection;
+    const prefersStaticHero =
+      mediaQuery.matches ||
+      connection?.saveData === true ||
+      (isMobile && /(^slow-2g$|^2g$|^3g$)/.test(connection?.effectiveType ?? ""));
+
+    if (prefersStaticHero) {
+      switchToStaticHero();
+    }
+  }, [isMobile]);
+
   // Crossfade video loading — two-slot A/B swap
   useEffect(() => {
     const videoA = videoARef.current;
     const videoB = videoBRef.current;
-    if (!videoA || !videoB) return;
+    if (!videoA || !videoB || useStaticHero) return;
 
     isAdvancingRef.current = false;
 
@@ -76,15 +133,30 @@ const HeroSection = () => {
     const readyEvent = isFirstLoad ? "loadeddata" : "canplay";
 
     let handled = false;
-    const handleReady = () => {
-      if (handled) return;
-      handled = true;
-      targetVideo.removeEventListener(readyEvent, handleReady);
+    let cancelled = false;
 
-      if (!isFirstLoad) {
-        targetVideo.currentTime = 0;
-      }
-      void targetVideo.play().catch(() => {});
+    const resetTransitionState = () => {
+      isTransitioningRef.current = false;
+      isAdvancingRef.current = false;
+    };
+
+    const restoreCurrentVideo = () => {
+      gsap.set(targetVideo, { opacity: 0 });
+      targetVideo.pause();
+      targetVideo.removeAttribute("src");
+      targetVideo.load();
+      resetTransitionState();
+
+      const activeVideo = getActiveVideo();
+      if (!activeVideo) return;
+      activeVideo.currentTime = 0;
+      void activeVideo.play().catch(() => {
+        switchToStaticHero();
+      });
+    };
+
+    const revealTargetVideo = () => {
+      if (cancelled) return;
 
       if (isFirstLoad) {
         gsap.to(targetVideo, { opacity: 1, duration: FADE_DURATION });
@@ -103,11 +175,50 @@ const HeroSection = () => {
         });
       }
       activeSlotRef.current = targetSlot;
-      isTransitioningRef.current = false;
-      isAdvancingRef.current = false;
+      resetTransitionState();
+    };
+
+    const startPlayback = async () => {
+      if (cancelled) return;
+
+      prepareVideoForInlinePlayback(targetVideo);
+      if (!isFirstLoad) {
+        targetVideo.currentTime = 0;
+      }
+
+      try {
+        await targetVideo.play();
+        if (cancelled || targetVideo.paused) {
+          throw new Error("Autoplay was blocked");
+        }
+        revealTargetVideo();
+      } catch {
+        if (isFirstLoad) {
+          switchToStaticHero();
+          return;
+        }
+        restoreCurrentVideo();
+      }
+    };
+
+    const handleReady = () => {
+      if (handled) return;
+      handled = true;
+      targetVideo.removeEventListener(readyEvent, handleReady);
+      void startPlayback();
+    };
+
+    const handleTargetError = () => {
+      targetVideo.removeEventListener(readyEvent, handleReady);
+      if (isFirstLoad) {
+        switchToStaticHero();
+        return;
+      }
+      restoreCurrentVideo();
     };
 
     targetVideo.addEventListener(readyEvent, handleReady);
+    targetVideo.addEventListener("error", handleTargetError);
 
     const existingSrc = targetVideo.getAttribute("src");
     if (existingSrc !== currentVideo) {
@@ -125,9 +236,11 @@ const HeroSection = () => {
     }
 
     return () => {
+      cancelled = true;
       targetVideo.removeEventListener(readyEvent, handleReady);
+      targetVideo.removeEventListener("error", handleTargetError);
     };
-  }, [currentVideo]);
+  }, [currentVideo, useStaticHero]);
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
@@ -163,12 +276,14 @@ const HeroSection = () => {
       <video
         ref={videoARef}
         className="absolute inset-0 h-full w-full object-cover opacity-0"
-        src={initialHeroVideo}
         muted
         autoPlay
         playsInline
+        loop={shouldLoopSingleVideo}
+        disablePictureInPicture
+        controlsList="nodownload noplaybackrate nofullscreen"
         poster={heroImg}
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
         onEnded={handleEnded}
         onError={handleError}
@@ -180,9 +295,13 @@ const HeroSection = () => {
         ref={videoBRef}
         className="absolute inset-0 h-full w-full object-cover opacity-0"
         muted
+        autoPlay
         playsInline
+        loop={shouldLoopSingleVideo}
+        disablePictureInPicture
+        controlsList="nodownload noplaybackrate nofullscreen"
         poster={heroImg}
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
         onEnded={handleEnded}
         onError={handleError}
