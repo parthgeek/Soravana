@@ -12,6 +12,7 @@ const heroVideos = [
   "/assets/touching-the-plants.mp4",
   "/assets/sunrise.mp4",
 ];
+const initialHeroVideo = heroVideos[0];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
 
@@ -82,14 +83,17 @@ const HeroSection = () => {
     const targetSlot = isFirstLoad ? "a" : activeSlotRef.current === "a" ? "b" : "a";
     const targetVideo = targetSlot === "a" ? videoA : videoB;
     const otherVideo = targetSlot === "a" ? videoB : videoA;
+    const readyEvent = isFirstLoad ? "loadeddata" : "canplay";
 
     let handled = false;
-    const handleCanPlay = () => {
+    const handleReady = () => {
       if (handled) return;
       handled = true;
-      targetVideo.removeEventListener("canplay", handleCanPlay);
+      targetVideo.removeEventListener(readyEvent, handleReady);
 
-      targetVideo.currentTime = 0;
+      if (!isFirstLoad) {
+        targetVideo.currentTime = 0;
+      }
       void targetVideo.play().catch(() => {});
 
       if (isFirstLoad) {
@@ -104,6 +108,7 @@ const HeroSection = () => {
           onComplete: () => {
             otherVideo.pause();
             otherVideo.removeAttribute("src");
+            otherVideo.load();
           },
         });
       }
@@ -112,16 +117,25 @@ const HeroSection = () => {
       isAdvancingRef.current = false;
     };
 
-    targetVideo.addEventListener("canplay", handleCanPlay);
-    targetVideo.src = currentVideo;
-    targetVideo.load();
+    targetVideo.addEventListener(readyEvent, handleReady);
 
-    if (targetVideo.readyState >= 2) {
-      handleCanPlay();
+    const existingSrc = targetVideo.getAttribute("src");
+    if (existingSrc !== currentVideo) {
+      targetVideo.src = currentVideo;
+      targetVideo.load();
+    } else if (
+      targetVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA &&
+      targetVideo.networkState === HTMLMediaElement.NETWORK_EMPTY
+    ) {
+      targetVideo.load();
+    }
+
+    if (targetVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      handleReady();
     }
 
     return () => {
-      targetVideo.removeEventListener("canplay", handleCanPlay);
+      targetVideo.removeEventListener(readyEvent, handleReady);
     };
   }, [currentVideo]);
 
@@ -160,8 +174,11 @@ const HeroSection = () => {
       <video
         ref={videoARef}
         className="absolute inset-0 h-full w-full object-cover opacity-0"
+        src={initialHeroVideo}
         muted
+        autoPlay
         playsInline
+        poster={heroImg}
         preload="auto"
         aria-hidden="true"
         onEnded={handleEnded}
@@ -175,6 +192,7 @@ const HeroSection = () => {
         className="absolute inset-0 h-full w-full object-cover opacity-0"
         muted
         playsInline
+        poster={heroImg}
         preload="auto"
         aria-hidden="true"
         onEnded={handleEnded}
