@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Play } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const heroImg = "/assets/hero-original.jpg";
@@ -14,7 +13,14 @@ const desktopHeroVideos = [
   "/assets/touching-the-plants.mp4",
   "/assets/sunrise.mp4",
 ];
-const mobileHeroVideos = [desktopHeroVideos[0]];
+const mobileHeroVideos = [
+ "/assets/mist.mp4",
+  "/assets/cow-on-the-grassland.mp4",
+  "/assets/boy-planting-a-sapling.mp4",
+  "/assets/plucking-fruits.mp4",
+  "/assets/touching-the-plants.mp4",
+  "/assets/sunrise.mp4",
+];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
 
@@ -22,8 +28,6 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
   const [firstVideoReady, setFirstVideoReady] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isManualPlayStarting, setIsManualPlayStarting] = useState(false);
-  const [showManualPlayOverlay, setShowManualPlayOverlay] = useState(false);
   const [useStaticHero, setUseStaticHero] = useState(false);
 
   const videoARef = useRef<HTMLVideoElement>(null);
@@ -37,7 +41,6 @@ const HeroSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const manualPlayStartRef = useRef<null | (() => Promise<void>)>(null);
 
   const heroVideos = isMobile ? mobileHeroVideos : desktopHeroVideos;
   const shouldLoopSingleVideo = heroVideos.length === 1;
@@ -66,10 +69,7 @@ const HeroSection = () => {
     isTransitioningRef.current = false;
     isAdvancingRef.current = false;
     setFirstVideoReady(false);
-    setShowManualPlayOverlay(false);
-    setIsManualPlayStarting(false);
     setUseStaticHero(true);
-    manualPlayStartRef.current = null;
 
     [videoARef.current, videoBRef.current].forEach((video) => {
       if (!video) return;
@@ -162,10 +162,6 @@ const HeroSection = () => {
     const revealTargetVideo = () => {
       if (cancelled) return;
 
-      manualPlayStartRef.current = null;
-      setShowManualPlayOverlay(false);
-      setIsManualPlayStarting(false);
-
       if (isFirstLoad) {
         gsap.to(targetVideo, { opacity: 1, duration: FADE_DURATION });
         firstLoadDoneRef.current = true;
@@ -186,31 +182,6 @@ const HeroSection = () => {
       resetTransitionState();
     };
 
-    const armManualPlayback = () => {
-      const manualStart = async () => {
-        if (cancelled) return;
-
-        prepareVideoForInlinePlayback(targetVideo);
-        if (!isFirstLoad) {
-          targetVideo.currentTime = 0;
-        }
-
-        try {
-          await targetVideo.play();
-          if (cancelled || targetVideo.paused) {
-            throw new Error("Manual playback failed");
-          }
-          revealTargetVideo();
-        } catch {
-          switchToStaticHero();
-        }
-      };
-
-      manualPlayStartRef.current = manualStart;
-      setShowManualPlayOverlay(true);
-      resetTransitionState();
-    };
-
     const startPlayback = async () => {
       if (cancelled) return;
 
@@ -227,7 +198,7 @@ const HeroSection = () => {
         revealTargetVideo();
       } catch {
         if (isFirstLoad) {
-          armManualPlayback();
+          switchToStaticHero();
           return;
         }
         restoreCurrentVideo();
@@ -270,22 +241,10 @@ const HeroSection = () => {
 
     return () => {
       cancelled = true;
-      if (manualPlayStartRef.current) {
-        manualPlayStartRef.current = null;
-        setShowManualPlayOverlay(false);
-        setIsManualPlayStarting(false);
-      }
       targetVideo.removeEventListener(readyEvent, handleReady);
       targetVideo.removeEventListener("error", handleTargetError);
     };
   }, [currentVideo, useStaticHero]);
-
-  const handleManualPlay = async () => {
-    if (isManualPlayStarting || !manualPlayStartRef.current) return;
-
-    setIsManualPlayStarting(true);
-    await manualPlayStartRef.current();
-  };
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
@@ -316,22 +275,6 @@ const HeroSection = () => {
         width={1920}
         height={1080}
       />
-
-      {showManualPlayOverlay && !useStaticHero ? (
-        <div className="absolute inset-0 z-[5] flex items-center justify-center bg-black/15 px-6">
-          <button
-            type="button"
-            onClick={() => void handleManualPlay()}
-            className="inline-flex items-center gap-3 rounded-full border border-white/35 bg-black/40 px-6 py-4 text-sm font-semibold tracking-[0.2em] text-white uppercase shadow-lg backdrop-blur-sm transition hover:bg-black/55"
-            aria-label="Play hero video"
-          >
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15">
-              <Play className="h-5 w-5 fill-current" />
-            </span>
-            {isManualPlayStarting ? "Starting video" : "Tap to play video"}
-          </button>
-        </div>
-      ) : null}
 
       {/* Slot A */}
       <video
