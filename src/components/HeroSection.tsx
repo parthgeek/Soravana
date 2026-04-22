@@ -14,12 +14,9 @@ const desktopHeroVideos = [
   "/assets/sunrise.mp4",
 ];
 const mobileHeroVideos = [
- "/assets/mist.mp4",
-  "/assets/cow-on-the-grassland.mp4",
-  "/assets/boy-planting-a-sapling.mp4",
+  "/assets/mist.mp4",
   "/assets/plucking-fruits.mp4",
   "/assets/touching-the-plants.mp4",
-  "/assets/sunrise.mp4",
 ];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
@@ -36,6 +33,7 @@ const HeroSection = () => {
   const firstLoadDoneRef = useRef(false);
   const isAdvancingRef = useRef(false);
   const isTransitioningRef = useRef(false);
+  const playbackFailureCountRef = useRef(0);
 
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -112,10 +110,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const connection = (navigator as Navigator & {
-      connection?: { saveData?: boolean };
-    }).connection;
-    const prefersStaticHero = mediaQuery.matches || connection?.saveData === true;
+    const prefersStaticHero = mediaQuery.matches;
 
     if (prefersStaticHero) {
       switchToStaticHero();
@@ -129,6 +124,104 @@ const HeroSection = () => {
     if (!videoA || !videoB || useStaticHero) return;
 
     isAdvancingRef.current = false;
+
+    if (isMobile) {
+      activeSlotRef.current = "a";
+      gsap.set(videoB, { opacity: 0 });
+      videoB.pause();
+      videoB.removeAttribute("src");
+      videoB.load();
+
+      const mobileVideo = videoA;
+      const isFirstLoad = !firstLoadDoneRef.current;
+      let handled = false;
+      let cancelled = false;
+
+      const resetTransitionState = () => {
+        isTransitioningRef.current = false;
+        isAdvancingRef.current = false;
+      };
+
+      const skipToNextVideo = () => {
+        playbackFailureCountRef.current += 1;
+        resetTransitionState();
+
+        if (playbackFailureCountRef.current >= heroVideos.length) {
+          switchToStaticHero();
+          return;
+        }
+
+        setCurrentIndex((i) => (i + 1) % heroVideos.length);
+      };
+
+      const handleReady = async () => {
+        if (handled || cancelled) return;
+        handled = true;
+        mobileVideo.removeEventListener("loadeddata", handleReady);
+
+        prepareVideoForInlinePlayback(mobileVideo);
+        mobileVideo.currentTime = 0;
+
+        try {
+          await mobileVideo.play();
+          if (cancelled || mobileVideo.paused) {
+            throw new Error("Autoplay was blocked");
+          }
+
+          playbackFailureCountRef.current = 0;
+
+          if (isFirstLoad) {
+            gsap.to(mobileVideo, { opacity: 1, duration: FADE_DURATION });
+            firstLoadDoneRef.current = true;
+            setFirstVideoReady(true);
+          } else {
+            gsap.set(mobileVideo, { opacity: 1 });
+          }
+
+          resetTransitionState();
+        } catch {
+          if (isFirstLoad) {
+            switchToStaticHero();
+            return;
+          }
+          skipToNextVideo();
+        }
+      };
+
+      const handleMobileError = () => {
+        mobileVideo.removeEventListener("loadeddata", handleReady);
+        if (isFirstLoad) {
+          switchToStaticHero();
+          return;
+        }
+        skipToNextVideo();
+      };
+
+      mobileVideo.addEventListener("loadeddata", handleReady);
+      mobileVideo.addEventListener("error", handleMobileError);
+
+      const existingSrc = mobileVideo.getAttribute("src");
+      if (existingSrc !== currentVideo) {
+        mobileVideo.pause();
+        mobileVideo.src = currentVideo;
+        mobileVideo.load();
+      } else if (
+        mobileVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA &&
+        mobileVideo.networkState === HTMLMediaElement.NETWORK_EMPTY
+      ) {
+        mobileVideo.load();
+      }
+
+      if (mobileVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        void handleReady();
+      }
+
+      return () => {
+        cancelled = true;
+        mobileVideo.removeEventListener("loadeddata", handleReady);
+        mobileVideo.removeEventListener("error", handleMobileError);
+      };
+    }
 
     const isFirstLoad = !firstLoadDoneRef.current;
     const targetSlot = isFirstLoad ? "a" : activeSlotRef.current === "a" ? "b" : "a";
@@ -195,6 +288,7 @@ const HeroSection = () => {
         if (cancelled || targetVideo.paused) {
           throw new Error("Autoplay was blocked");
         }
+        playbackFailureCountRef.current = 0;
         revealTargetVideo();
       } catch {
         if (isFirstLoad) {
@@ -244,7 +338,7 @@ const HeroSection = () => {
       targetVideo.removeEventListener(readyEvent, handleReady);
       targetVideo.removeEventListener("error", handleTargetError);
     };
-  }, [currentVideo, useStaticHero]);
+  }, [currentVideo, heroVideos.length, isMobile, useStaticHero]);
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
