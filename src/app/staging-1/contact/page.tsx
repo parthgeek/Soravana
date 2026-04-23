@@ -2,7 +2,6 @@
 
 import NavbarStaging1 from "@/components/NavbarStaging1";
 import InvestmentSection from "@/components/InvestmentSection";
-import PricingCTA from "@/components/PricingCTA";
 import ContactForm from "@/components/ContactForm";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
@@ -13,7 +12,6 @@ export default function ContactPage() {
     <>
       <NavbarStaging1 />
       <ContactForm />
-      <PricingCTA />
       <FAQSection />
       <InvestmentSection />
       <Footer />

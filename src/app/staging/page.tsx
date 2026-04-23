@@ -11,6 +11,7 @@ import SustainabilitySection from "@/components/SustainabilitySection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import BuildSection from "@/components/BuildSection";
 import BuildFreedomSection from "@/components/BuildFreedomSection";
+import PricingCTA from "@/components/PricingCTA";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -28,6 +29,7 @@ export default function StagingHomePage() {
       <WhyChooseSection />
       <BuildSection />
       <BuildFreedomSection />
+      <PricingCTA contactHref="/staging/contact" />
       <Footer />
       <WhatsAppButton />
     </>
