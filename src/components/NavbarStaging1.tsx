@@ -14,19 +14,43 @@ const navLinks = [
 const NavbarStaging1 = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let lastScrollY = window.scrollY;
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setScrolled(currentScrollY > 50);
+
+      if (open || currentScrollY < 24) {
+        setHidden(false);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 120) {
+        setHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        setHidden(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      setHidden(false);
+    }
+  }, [open]);
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 md:pt-6"
+      className="fixed top-0 left-0 right-0 z-50 px-0 md:px-8 pt-4 md:pt-6"
       initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+      animate={{ y: hidden ? -140 : 0, opacity: hidden ? 0 : 1 }}
+      transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div
         className={`mx-auto max-w-6xl rounded-2xl transition-all duration-300 ${
@@ -35,9 +59,15 @@ const NavbarStaging1 = () => {
             : "bg-white/80 backdrop-blur-sm shadow-md"
         }`}
       >
-        <div className="flex items-center justify-between  px-6 md:px-8">
-          <Link href="/staging-1" className="flex items-center gap-2 font-heading text-xl tracking-[0.15em] text-accent">
-            <Image src="/favicon.png" alt="Soravana Logo" width={112} height={112} className="rounded-sm" />
+        <div className="flex min-h-[72px] items-center pl-0 pr-4 md:min-h-0 md:justify-between md:px-8">
+          <Link href="/staging-1" className="flex items-center text-left font-heading text-lg leading-none tracking-[0.15em] text-accent md:gap-2 md:flex-none md:text-xl">
+            <Image
+              src="/favicon.png"
+              alt="Soravana Logo"
+              width={112}
+              height={112}
+              className="h-16 w-auto rounded-sm md:h-20"
+            />
             SORAVANA
           </Link>
           <div className="hidden md:flex items-center gap-8">
@@ -62,7 +92,7 @@ const NavbarStaging1 = () => {
             ))}
           </div>
           <button
-            className="md:hidden text-foreground"
+            className="ml-auto text-foreground md:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >

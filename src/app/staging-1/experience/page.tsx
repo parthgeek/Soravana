@@ -10,8 +10,10 @@ export default function ExperiencePage() {
   return (
     <>
       <NavbarStaging1 />
-      <ExperienceSection />
-      <AmenitiesSection />
+      <main className="page-navbar-offset">
+        <ExperienceSection />
+        <AmenitiesSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

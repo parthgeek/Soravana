@@ -9,7 +9,9 @@ export default function LocationPage() {
   return (
     <>
       <Navbar />
-      <LocationSection />
+      <main className="page-navbar-offset">
+        <LocationSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

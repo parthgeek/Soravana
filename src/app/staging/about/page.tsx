@@ -14,12 +14,14 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <AboutSection />
-      <AdvantageSection />
-      <OverviewSection />
-      <TeamSection />
-      <TrustSection />
-      <BrochureSection />
+      <main className="page-navbar-offset">
+        <AboutSection />
+        <AdvantageSection />
+        <OverviewSection />
+        <TeamSection />
+        <TrustSection />
+        <BrochureSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

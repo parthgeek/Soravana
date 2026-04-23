@@ -91,7 +91,7 @@ const cardVariants = {
 };
 
 const AdvantageSection = () => (
-  <section className="py-24 bg-background">
+  <section className="section-spacing bg-background">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-14">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">

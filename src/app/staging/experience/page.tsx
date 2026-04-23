@@ -11,9 +11,11 @@ export default function ExperiencePage() {
   return (
     <>
       <Navbar />
-      <ExperienceSection />
-      <AmenitiesSection />
-      <GallerySection />
+      <main className="page-navbar-offset">
+        <ExperienceSection />
+        <AmenitiesSection />
+        <GallerySection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

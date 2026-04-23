@@ -4,7 +4,7 @@ import { Download, Map } from "lucide-react";
 const aerialImg = "/assets/gallery-aerial.jpg";
 
 const BrochureSection = () => (
-  <section className="py-24 bg-section-alt">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
         <StaggerParent>

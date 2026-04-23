@@ -15,7 +15,7 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section className="py-24 bg-section-alt">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4 max-w-2xl">
       <AnimateIn variant="fadeUp" className="text-center mb-12">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">Frequently Asked Questions</h2>

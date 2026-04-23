@@ -13,11 +13,13 @@ export default function FarmingPage() {
   return (
     <>
       <Navbar />
-      <FarmingSection />
-      <SustainabilitySection />
-      <WhyChooseSection />
-      <BuildSection />
-      <BuildFreedomSection />
+      <main className="page-navbar-offset">
+        <FarmingSection />
+        <SustainabilitySection />
+        <WhyChooseSection />
+        <BuildSection />
+        <BuildFreedomSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

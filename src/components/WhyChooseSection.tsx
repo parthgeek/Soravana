@@ -20,7 +20,7 @@ const reasons = [
 ];
 
 const WhyChooseSection = () => (
-  <section className="py-24 bg-section-alt">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="max-w-4xl mx-auto">
         <AnimateIn variant="fadeUp" className="text-center mb-14">
