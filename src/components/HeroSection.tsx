@@ -13,11 +13,6 @@ const desktopHeroVideos = [
   "/assets/touching-the-plants.mp4",
   "/assets/sunrise.mp4",
 ];
-const mobileHeroVideos = [
-  "/assets/mist.mp4",
-  "/assets/plucking-fruits.mp4",
-  "/assets/touching-the-plants.mp4",
-];
 const maxPlaybackSeconds = 10;
 const FADE_DURATION = 0.8;
 
@@ -40,7 +35,7 @@ const HeroSection = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const heroVideos = isMobile ? mobileHeroVideos : desktopHeroVideos;
+  const heroVideos = desktopHeroVideos;
   const shouldLoopSingleVideo = heroVideos.length === 1;
   const currentVideo = heroVideos[currentIndex % heroVideos.length];
 
