@@ -311,7 +311,7 @@ const HeroSection = () => {
       <div className="relative z-10 text-center pt-28 md:pt-32">
         <span
           ref={badgeRef}
-          className="inline-block rounded-full bg-black/35 px-4 py-2 text-primary-foreground font-body font-semibold text-xs md:text-sm tracking-[0.25em] uppercase shadow-sm backdrop-blur-[2px]"
+          className="inline-block rounded-full bg-black/35 px-3 py-2 text-[10px] text-primary-foreground font-body font-semibold tracking-[0.18em] uppercase shadow-sm backdrop-blur-[2px] md:px-4 md:text-sm md:tracking-[0.25em]"
         >
           Premium Managed Farmland • Near Bengaluru
         </span>
