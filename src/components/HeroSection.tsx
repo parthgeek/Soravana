@@ -120,109 +120,11 @@ const HeroSection = () => {
 
     isAdvancingRef.current = false;
 
-    if (isMobile) {
-      activeSlotRef.current = "a";
-      gsap.set(videoB, { opacity: 0 });
-      videoB.pause();
-      videoB.removeAttribute("src");
-      videoB.load();
-
-      const mobileVideo = videoA;
-      const isFirstLoad = !firstLoadDoneRef.current;
-      let handled = false;
-      let cancelled = false;
-
-      const resetTransitionState = () => {
-        isTransitioningRef.current = false;
-        isAdvancingRef.current = false;
-      };
-
-      const skipToNextVideo = () => {
-        playbackFailureCountRef.current += 1;
-        resetTransitionState();
-
-        if (playbackFailureCountRef.current >= heroVideos.length) {
-          switchToStaticHero();
-          return;
-        }
-
-        setCurrentIndex((i) => (i + 1) % heroVideos.length);
-      };
-
-      const handleReady = async () => {
-        if (handled || cancelled) return;
-        handled = true;
-        mobileVideo.removeEventListener("loadeddata", handleReady);
-
-        prepareVideoForInlinePlayback(mobileVideo);
-        mobileVideo.currentTime = 0;
-
-        try {
-          await mobileVideo.play();
-          if (cancelled || mobileVideo.paused) {
-            throw new Error("Autoplay was blocked");
-          }
-
-          playbackFailureCountRef.current = 0;
-
-          if (isFirstLoad) {
-            gsap.to(mobileVideo, { opacity: 1, duration: FADE_DURATION });
-            firstLoadDoneRef.current = true;
-            setFirstVideoReady(true);
-          } else {
-            gsap.set(mobileVideo, { opacity: 1 });
-          }
-
-          resetTransitionState();
-        } catch {
-          if (isFirstLoad) {
-            switchToStaticHero();
-            return;
-          }
-          skipToNextVideo();
-        }
-      };
-
-      const handleMobileError = () => {
-        mobileVideo.removeEventListener("loadeddata", handleReady);
-        if (isFirstLoad) {
-          switchToStaticHero();
-          return;
-        }
-        skipToNextVideo();
-      };
-
-      mobileVideo.addEventListener("loadeddata", handleReady);
-      mobileVideo.addEventListener("error", handleMobileError);
-
-      const existingSrc = mobileVideo.getAttribute("src");
-      if (existingSrc !== currentVideo) {
-        mobileVideo.pause();
-        mobileVideo.src = currentVideo;
-        mobileVideo.load();
-      } else if (
-        mobileVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA &&
-        mobileVideo.networkState === HTMLMediaElement.NETWORK_EMPTY
-      ) {
-        mobileVideo.load();
-      }
-
-      if (mobileVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-        void handleReady();
-      }
-
-      return () => {
-        cancelled = true;
-        mobileVideo.removeEventListener("loadeddata", handleReady);
-        mobileVideo.removeEventListener("error", handleMobileError);
-      };
-    }
-
     const isFirstLoad = !firstLoadDoneRef.current;
     const targetSlot = isFirstLoad ? "a" : activeSlotRef.current === "a" ? "b" : "a";
     const targetVideo = targetSlot === "a" ? videoA : videoB;
     const otherVideo = targetSlot === "a" ? videoB : videoA;
-    const readyEvent = isFirstLoad ? "loadeddata" : "canplay";
+    const readyEvent = isMobile ? "loadeddata" : isFirstLoad ? "loadeddata" : "canplay";
 
     let handled = false;
     let cancelled = false;
@@ -255,6 +157,8 @@ const HeroSection = () => {
         firstLoadDoneRef.current = true;
         setFirstVideoReady(true);
       } else {
+        gsap.set(targetVideo, { zIndex: 1 });
+        gsap.set(otherVideo, { zIndex: 0 });
         gsap.to(targetVideo, { opacity: 1, duration: FADE_DURATION });
         gsap.to(otherVideo, {
           opacity: 0,
@@ -274,9 +178,7 @@ const HeroSection = () => {
       if (cancelled) return;
 
       prepareVideoForInlinePlayback(targetVideo);
-      if (!isFirstLoad) {
-        targetVideo.currentTime = 0;
-      }
+      targetVideo.currentTime = 0;
 
       try {
         await targetVideo.play();
@@ -312,9 +214,11 @@ const HeroSection = () => {
 
     targetVideo.addEventListener(readyEvent, handleReady);
     targetVideo.addEventListener("error", handleTargetError);
+    gsap.set(targetVideo, { opacity: 0, zIndex: isFirstLoad ? 1 : 1 });
 
     const existingSrc = targetVideo.getAttribute("src");
     if (existingSrc !== currentVideo) {
+      targetVideo.pause();
       targetVideo.src = currentVideo;
       targetVideo.load();
     } else if (
