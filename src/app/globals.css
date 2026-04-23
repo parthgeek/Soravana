@@ -99,6 +99,18 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .section-spacing {
+    @apply py-14 md:py-24;
+  }
+
+  .section-spacing-sm {
+    @apply py-12 md:py-16;
+  }
+
+  .page-navbar-offset {
+    @apply pt-28 md:pt-32;
+  }
 }
 
 html {

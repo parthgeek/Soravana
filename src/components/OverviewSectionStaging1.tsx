@@ -118,7 +118,7 @@ const famousPlaces = [
 ];
 
 const OverviewSectionStaging1 = () => (
-  <section className="py-24 bg-section-alt">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">Project Highlights</h2>
@@ -130,7 +130,7 @@ const OverviewSectionStaging1 = () => (
           transition={{ duration: 0.6, delay: 0.3 }}
         />
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Famous nearby places from CHANDUSURYA HOUSE, 9C3H+PQ2, Nallahalli Doddi.
+          Famous nearby places from , Nallahalli Doddi.
         </p>
       </AnimateIn>
       <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

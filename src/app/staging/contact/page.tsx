@@ -11,9 +11,11 @@ export default function ContactPage() {
   return (
     <>
       <Navbar />
-      <ContactForm />
-      <FAQSection />
-      <InvestmentSection />
+      <main className="page-navbar-offset">
+        <ContactForm />
+        <FAQSection />
+        <InvestmentSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

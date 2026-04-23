@@ -21,7 +21,7 @@ const principles = [
 ];
 
 const SustainabilitySection = () => (
-  <section className="py-24 bg-secondary">
+  <section className="section-spacing bg-secondary">
     <div className="container mx-auto px-4 text-center">
       <AnimateIn variant="fadeUp" className="mb-14">
         <h2 className="text-2xl md:text-4xl font-heading text-foreground mb-4 max-w-2xl mx-auto leading-snug">

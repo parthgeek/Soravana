@@ -9,7 +9,7 @@ const points = [
 ];
 
 const BuildSection = () => (
-  <section className="py-24 bg-section-alt">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <AnimateIn variant="fadeLeft" className="order-2 lg:order-1">

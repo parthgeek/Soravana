@@ -13,11 +13,13 @@ export default function AboutPage() {
   return (
     <>
       <NavbarStaging1 />
-      <AboutSection />
-      <AdvantageSectionStaging1 />
-      <OverviewSection />
-      <TeamSectionStaging1 />
-      <BrochureSection />
+      <main className="page-navbar-offset">
+        <AboutSection />
+        <AdvantageSectionStaging1 />
+        <OverviewSection />
+        <TeamSectionStaging1 />
+        <BrochureSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>

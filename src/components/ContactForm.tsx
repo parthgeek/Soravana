@@ -23,7 +23,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-form" className="py-24 bg-[#FDFAF4]">
+    <section id="contact-form" className="section-spacing bg-[#FDFAF4]">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: animated brand visual */}

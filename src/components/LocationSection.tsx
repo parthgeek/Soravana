@@ -9,14 +9,13 @@ const distances = [
 ];
 
 const LocationSection = () => (
-  <section id="location" className="py-24 bg-section-alt">
+  <section id="location" className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
         Close to the City. Far from the Chaos.
       </h2>
       <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
       <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
-        CHANDUSURYA HOUSE, 9C3H+PQ2, Nallahalli Doddi, Karnataka 562117.
         A serene location with practical access to key Bengaluru zones.
       </p>
 

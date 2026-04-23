@@ -4,7 +4,7 @@ import { Phone } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 
 const FinalCTA = () => (
-  <section id="contact" className="py-24 bg-primary/5">
+  <section id="contact" className="section-spacing bg-primary/5">
     <div className="container mx-auto px-4 text-center">
       <AnimateIn variant="fadeUp">
         <h2 className="text-3xl md:text-5xl font-heading text-foreground mb-4">

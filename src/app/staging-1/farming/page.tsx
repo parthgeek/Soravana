@@ -12,10 +12,12 @@ export default function FarmingPage() {
   return (
     <>
       <NavbarStaging1 />
-      <FarmingSection />
-      <WhyChooseSection />
-      <BuildSection />
-      <BuildFreedomSection />
+      <main className="page-navbar-offset">
+        <FarmingSection />
+        <WhyChooseSection />
+        <BuildSection />
+        <BuildFreedomSection />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>
