@@ -35,7 +35,7 @@ const NavbarStaging1 = () => {
             : "bg-white/80 backdrop-blur-sm shadow-md"
         }`}
       >
-        <div className="flex items-center justify-between py-3 px-6 md:px-8">
+        <div className="flex items-center justify-between  px-6 md:px-8">
           <Link href="/staging-1" className="flex items-center gap-2 font-heading text-xl tracking-[0.15em] text-accent">
             <Image src="/favicon.png" alt="Soravana Logo" width={112} height={112} className="rounded-sm" />
             SORAVANA
