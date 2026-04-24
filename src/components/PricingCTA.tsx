@@ -15,7 +15,7 @@ type PricingCTAProps = {
 };
 
 const PricingCTA = ({ contactHref }: PricingCTAProps) => (
-  <section className="pb-14 md:pb-24 bg-background">
+  <section className="pb-14 md:pb-24 bg-section-alt">
     <div className="w-full px-4 md:px-8">
       <AnimateIn variant="scaleUp">
         <div className="relative mx-auto w-full overflow-hidden rounded-xl text-center text-primary-foreground">

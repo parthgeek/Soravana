@@ -154,7 +154,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const AboutSection = () => (
-  <section id="about" className="pb-14 md:pb-24 bg-background">
+  <section id="about" className="pb-14 md:pb-24 bg-section-alt">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">More Than Land. A Way of Living.</h2>
