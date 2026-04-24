@@ -23,9 +23,9 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-form" className="section-spacing bg-[#FDFAF4]">
+    <section id="contact-form" className="pb-14 md:pb-24 bg-[#FDFAF4]">
       <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: animated brand visual */}
           <div className="flex flex-col items-center justify-center gap-6 order-2 lg:order-1">
             <div className="w-full max-w-sm overflow-hidden" style={{ height: "500px" }}>
