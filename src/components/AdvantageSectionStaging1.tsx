@@ -129,13 +129,14 @@ const advantages = [
   },
   {
     icon: sketchIcons.farmhouse,
-    image: "/assets/farmhouse.jpg",
+   image: "/assets/cottage.jpg",
     title: "Design & Build",
     desc: "Design your farmhouse and build at your convenience.",
   },
   {
     icon: sketchIcons.bed,
-    image: "/assets/cottage.jpg",
+    image: "/assets/gallery-trail.jpg",
+   
     title: "Relax & Recharge",
     desc: "Curated cottages designed for peaceful weekend stays.",
   },

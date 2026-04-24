@@ -1,7 +1,7 @@
 const items = [
   {
     title: "Own",
-    image: "/assets/hero-farmland.jpg",
+    image: "/assets/gallery-aerial.jpg",
     desc: "Individually owned 5,000 sq. ft. farmland plots with clear titles.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -32,7 +32,7 @@ const items = [
   },
   {
     title: "Farm",
-    image: "/assets/farming.jpg",
+    image: "/assets/amenity-garden.jpg",
     desc: "Grow your own food or opt for managed farming support.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
@@ -70,7 +70,7 @@ const items = [
   },
   {
     title: "Build",
-    image: "/assets/farmhouse.jpg",
+    image: "/assets/cottage.jpg",
     desc: "Design and build your farmhouse at your own pace.",
     sketch: (
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">

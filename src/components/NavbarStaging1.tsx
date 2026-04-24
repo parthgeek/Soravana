@@ -50,7 +50,7 @@ const NavbarStaging1 = () => {
       >
         <Link
           href="/staging-1"
-          className={`flex items-center gap-2 rounded-full pl-1.5 pr-3 font-heading tracking-[0.15em] text-accent transition-all duration-300 md:gap-2.5 md:pl-2 md:pr-4 ${
+          className={`flex items-center gap-0 rounded-full pl-1.5 pr-3 font-heading tracking-[0.15em] text-accent transition-all duration-300 md:gap-0.5 md:pl-2 md:pr-4 ${
             scrolled
               ? "bg-white/95 py-1 shadow-md backdrop-blur-md"
               : "bg-white/80 py-1 shadow-sm backdrop-blur-sm"
@@ -66,7 +66,7 @@ const NavbarStaging1 = () => {
             }`}
           />
           <span
-            className={`hidden leading-none transition-all duration-300 sm:inline ${
+            className={`hidden -ml-1 leading-none transition-all duration-300 sm:inline md:-ml-1.5 ${
               scrolled ? "text-sm md:text-base" : "text-base md:text-lg"
             }`}
           >

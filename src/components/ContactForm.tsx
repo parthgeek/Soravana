@@ -27,13 +27,13 @@ const ContactForm = () => {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: animated brand visual */}
-          <div className="flex flex-col items-center justify-center gap-6 order-2 lg:order-1">
-            <div className="w-full max-w-sm overflow-hidden" style={{ height: "500px" }}>
+          <div className="flex flex-col items-center justify-start gap-6 order-2 lg:order-1">
+            <div className="w-full max-w-sm">
               <img
                 src="/Soravana-animated.gif"
                 alt="Soravana Farmland"
-                className="w-full h-auto object-cover object-center"
-                style={{ mixBlendMode: "multiply", opacity: 0.75, marginTop: "-10%" }}
+                className="w-full h-auto object-contain"
+                style={{ mixBlendMode: "multiply" }}
               />
             </div>
             <div className="text-center">
@@ -47,7 +47,7 @@ const ContactForm = () => {
           </div>
 
           {/* Right: form */}
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 lg:pt-32">
             <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
               Get in Touch
             </h2>
