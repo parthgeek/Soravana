@@ -292,7 +292,7 @@ const HeroSection = () => {
       <div ref={overlayRef} className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-foreground/10" />
 
       {/* Top badge */}
-      <div className="relative z-10 text-center pt-28 md:pt-32">
+      <div className="relative z-10 text-center pt-28 md:pt-0 md:my-auto">
         <span
           ref={badgeRef}
           className="inline-block rounded-full bg-black/35 px-3 py-2 text-[10px] text-primary-foreground font-body font-semibold tracking-[0.18em] uppercase shadow-sm backdrop-blur-[2px] md:px-4 md:text-sm md:tracking-[0.25em]"
