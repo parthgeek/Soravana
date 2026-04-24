@@ -9,7 +9,7 @@ const distances = [
 ];
 
 const LocationSection = () => (
-  <section id="location" className="section-spacing bg-section-alt">
+  <section id="location" className="pb-14 md:pb-24 bg-white">
     <div className="container mx-auto px-4">
       <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
         Close to the City. Far from the Chaos.
