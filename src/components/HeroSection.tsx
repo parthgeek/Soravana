@@ -28,7 +28,6 @@ const HeroSection = () => {
   const firstLoadDoneRef = useRef(false);
   const isAdvancingRef = useRef(false);
   const isTransitioningRef = useRef(false);
-  const playbackFailureCountRef = useRef(0);
 
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -51,11 +50,13 @@ const HeroSection = () => {
     video.playsInline = true;
     video.autoplay = true;
     video.disablePictureInPicture = true;
+    video.disableRemotePlayback = true;
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "true");
     video.setAttribute("autoplay", "");
     video.setAttribute("disablepictureinpicture", "");
+    video.setAttribute("disableremoteplayback", "");
   };
 
   const switchToStaticHero = () => {
@@ -66,6 +67,7 @@ const HeroSection = () => {
 
     [videoARef.current, videoBRef.current].forEach((video) => {
       if (!video) return;
+      gsap.killTweensOf(video);
       gsap.set(video, { opacity: 0 });
       video.pause();
       video.removeAttribute("src");
@@ -134,21 +136,6 @@ const HeroSection = () => {
       isAdvancingRef.current = false;
     };
 
-    const restoreCurrentVideo = () => {
-      gsap.set(targetVideo, { opacity: 0 });
-      targetVideo.pause();
-      targetVideo.removeAttribute("src");
-      targetVideo.load();
-      resetTransitionState();
-
-      const activeVideo = getActiveVideo();
-      if (!activeVideo) return;
-      activeVideo.currentTime = 0;
-      void activeVideo.play().catch(() => {
-        switchToStaticHero();
-      });
-    };
-
     const revealTargetVideo = () => {
       if (cancelled) return;
 
@@ -182,17 +169,16 @@ const HeroSection = () => {
 
       try {
         await targetVideo.play();
-        if (cancelled || targetVideo.paused) {
+        if (
+          cancelled ||
+          targetVideo.paused ||
+          targetVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA
+        ) {
           throw new Error("Autoplay was blocked");
         }
-        playbackFailureCountRef.current = 0;
         revealTargetVideo();
       } catch {
-        if (isFirstLoad) {
-          switchToStaticHero();
-          return;
-        }
-        restoreCurrentVideo();
+        switchToStaticHero();
       }
     };
 
@@ -205,11 +191,7 @@ const HeroSection = () => {
 
     const handleTargetError = () => {
       targetVideo.removeEventListener(readyEvent, handleReady);
-      if (isFirstLoad) {
-        switchToStaticHero();
-        return;
-      }
-      restoreCurrentVideo();
+      switchToStaticHero();
     };
 
     targetVideo.addEventListener(readyEvent, handleReady);
@@ -253,7 +235,7 @@ const HeroSection = () => {
   const handleError = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     if (!isActiveVideoEvent(video)) return;
-    advanceToNextVideo();
+    switchToStaticHero();
   };
 
   return (
@@ -272,15 +254,16 @@ const HeroSection = () => {
       {/* Slot A */}
       <video
         ref={videoARef}
-        className="absolute inset-0 h-full w-full object-cover opacity-0"
+        className="hero-video pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
         muted
         autoPlay
         playsInline
         loop={shouldLoopSingleVideo}
         disablePictureInPicture
+        disableRemotePlayback
         controlsList="nodownload noplaybackrate nofullscreen"
         poster={heroImg}
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
         onEnded={handleEnded}
         onError={handleError}
@@ -290,15 +273,16 @@ const HeroSection = () => {
       {/* Slot B */}
       <video
         ref={videoBRef}
-        className="absolute inset-0 h-full w-full object-cover opacity-0"
+        className="hero-video pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
         muted
         autoPlay
         playsInline
         loop={shouldLoopSingleVideo}
         disablePictureInPicture
+        disableRemotePlayback
         controlsList="nodownload noplaybackrate nofullscreen"
         poster={heroImg}
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
         onEnded={handleEnded}
         onError={handleError}
