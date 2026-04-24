@@ -328,7 +328,7 @@ const HeroSection = () => {
             </h1>
             <p
               ref={subtitleRef}
-              className="text-primary-foreground/80 font-heading italic text-lg md:text-xl mb-6"
+              className="text-primary-foreground/80 font-heading italic text-lg font-bold md:text-xl md:font-bold mb-6"
             >
               It's a life you return to.
             </p>
