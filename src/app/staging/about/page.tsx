@@ -14,7 +14,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="page-navbar-offset">
+      <main className="pt-20 md:pt-24">
         <AboutSection />
         <AdvantageSection />
         <OverviewSection />

@@ -9,7 +9,7 @@ export default function LocationPage() {
   return (
     <>
       <Navbar />
-      <main className="page-navbar-offset">
+      <main className="pt-20 md:pt-24 bg-white">
         <LocationSection />
       </main>
       <Footer />

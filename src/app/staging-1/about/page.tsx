@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <>
       <NavbarStaging1 />
-      <main className="page-navbar-offset">
+      <main className="pt-20 md:pt-24">
         <AboutSection />
         <AdvantageSectionStaging1 />
         <OverviewSection />

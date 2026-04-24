@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <>
       <Navbar />
-      <main className="page-navbar-offset">
+      <main className="pt-20 md:pt-24 bg-[#FDFAF4]">
         <ContactForm />
         <FAQSection />
         <InvestmentSection />
