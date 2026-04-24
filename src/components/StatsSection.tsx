@@ -53,7 +53,7 @@ const StatItem = ({ value, suffix, label }: { value: number; suffix: string; lab
 };
 
 const StatsSection = () => (
-  <section className="section-spacing-sm bg-section-alt">
+  <section className="section-spacing-sm bg-background">
     <div className="container mx-auto px-4">
       <StaggerParent className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {stats.map((s) => (

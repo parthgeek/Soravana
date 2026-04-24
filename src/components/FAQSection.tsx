@@ -15,7 +15,7 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section className="section-spacing bg-section-alt">
+  <section className="section-spacing bg-background">
     <div className="container mx-auto px-4 max-w-2xl">
       <AnimateIn variant="fadeUp" className="text-center mb-12">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">Frequently Asked Questions</h2>
@@ -31,7 +31,7 @@ const FAQSection = () => (
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, i) => (
             <StaggerChild key={i}>
-              <AccordionItem value={`faq-${i}`} className="bg-background rounded-lg px-6 border-none">
+              <AccordionItem value={`faq-${i}`} className="bg-section-alt rounded-lg px-6 border-none">
                 <AccordionTrigger className="text-left font-heading text-base hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>

@@ -12,7 +12,7 @@ const team = [
 ];
 
 const TeamSection = () => (
-  <section className="section-spacing bg-section-alt">
+  <section className="section-spacing bg-background">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-16">
         <span className="text-accent font-body text-sm tracking-widest uppercase mb-3 block">

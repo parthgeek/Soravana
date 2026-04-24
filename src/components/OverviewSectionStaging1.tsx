@@ -118,7 +118,7 @@ const famousPlaces = [
 ];
 
 const OverviewSectionStaging1 = () => (
-  <section className="section-spacing bg-section-alt">
+  <section className="section-spacing bg-background">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">Project Highlights</h2>
@@ -137,7 +137,7 @@ const OverviewSectionStaging1 = () => (
         {famousPlaces.map((place) => (
           <StaggerChild key={place.label}>
             <motion.div
-              className="bg-background rounded-lg p-6 flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-section-alt rounded-lg p-6 flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow"
               whileHover={{ y: -4, boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
               transition={{ duration: 0.25 }}
             >

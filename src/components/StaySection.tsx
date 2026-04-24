@@ -9,7 +9,7 @@ const points = [
 ];
 
 const StaySection = () => (
-  <section className="pt-14 md:pt-24 bg-background">
+  <section className="pt-14 md:pt-24 bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <AnimateIn variant="fadeLeft">

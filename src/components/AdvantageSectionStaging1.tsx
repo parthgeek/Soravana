@@ -250,7 +250,7 @@ function PlaceCard({ place }: { place: typeof famousPlaces[0] }) {
       href={place.mapUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative rounded-xl border border-border bg-background overflow-hidden group cursor-pointer hover:border-accent/40 transition-all duration-200 hover:shadow-sm block"
+      className="relative rounded-xl border border-border bg-section-alt overflow-hidden group cursor-pointer hover:border-accent/40 transition-all duration-200 hover:shadow-sm block"
       whileHover={{ y: -3 }}
       transition={{ duration: 1 }}
       onMouseEnter={() => setHovered(true)}
@@ -299,7 +299,7 @@ function PlaceCard({ place }: { place: typeof famousPlaces[0] }) {
 }
 
 const AdvantageSectionStaging1 = () => (
-  <section className="section-spacing bg-background">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-14">
         <h2 className="text-3xl md:text-5xl font-heading mb-4">The Soravana Advantage</h2>

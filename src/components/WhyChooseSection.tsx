@@ -20,7 +20,7 @@ const reasons = [
 ];
 
 const WhyChooseSection = () => (
-  <section className="section-spacing bg-background">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <div className="max-w-4xl mx-auto">
         <AnimateIn variant="fadeUp" className="text-center mb-14">
@@ -42,7 +42,7 @@ const WhyChooseSection = () => (
           {reasons.map((r) => (
             <StaggerChild key={r}>
               <motion.div
-                className="flex items-start gap-3 bg-background rounded-lg p-4 border border-border"
+                className="flex items-start gap-3 bg-section-alt rounded-lg p-4 border border-border"
                 whileHover={{ x: 4, borderColor: "hsl(var(--accent))" }}
                 transition={{ duration: 0.2 }}
               >

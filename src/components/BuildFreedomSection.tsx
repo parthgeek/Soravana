@@ -11,7 +11,7 @@ const freedoms = [
 ];
 
 const BuildFreedomSection = () => (
-  <section className="section-spacing bg-background">
+  <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
       <AnimateIn variant="fadeUp" className="text-center mb-16">
         <span className="text-accent font-body text-sm tracking-widest uppercase mb-3 block">
