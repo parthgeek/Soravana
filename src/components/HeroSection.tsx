@@ -239,7 +239,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col overflow-hidden">
+    <section id="home" className="relative min-h-[100svh] md:min-h-screen flex flex-col overflow-hidden">
       {/* Fallback image — only visible until first video is ready */}
       <img
         src={heroImg}
