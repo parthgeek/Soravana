@@ -75,7 +75,7 @@ const NavbarStaging1 = () => {
           }`}
         >
           <div
-            className={`flex items-center justify-between gap-6 px-4 transition-all duration-300 md:justify-center md:px-7 ${
+            className={`flex items-center justify-center gap-6 px-4 transition-all duration-300 md:px-7 ${
               scrolled ? "py-1.5 md:py-1.5" : "py-2 md:py-2"
             }`}
           >
@@ -101,7 +101,7 @@ const NavbarStaging1 = () => {
               ))}
             </div>
             <button
-              className="text-foreground md:hidden ml-auto flex items-center justify-center"
+              className="text-foreground md:hidden flex items-center justify-center"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
