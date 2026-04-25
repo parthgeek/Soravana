@@ -38,16 +38,16 @@ const WhyChooseSection = () => (
             A truly organic heaven — where every detail is designed for sustainable, premium living.
           </p>
         </AnimateIn>
-        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reasons.map((r) => (
             <StaggerChild key={r}>
               <motion.div
-                className="flex items-start gap-3 bg-section-alt rounded-lg p-4 border border-border"
-                whileHover={{ x: 4, borderColor: "hsl(var(--accent))" }}
+                className="flex flex-col items-start gap-3 bg-background rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
+                whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
                 <span className="text-accent">{sketchCheck}</span>
-                <p className="text-foreground/90 text-sm leading-relaxed">{r}</p>
+                <p className="text-foreground/80 text-sm leading-relaxed">{r}</p>
               </motion.div>
             </StaggerChild>
           ))}

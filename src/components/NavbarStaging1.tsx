@@ -48,30 +48,16 @@ const NavbarStaging1 = () => {
         animate={{ opacity: hidden ? 0 : 1, y: hidden ? -20 : 0 }}
         transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <Link
-          href="/staging-1"
-          className={`flex items-center gap-0 rounded-full pl-1.5 pr-3 font-heading tracking-[0.15em] text-accent transition-all duration-300 md:gap-0.5 md:pl-2 md:pr-4 ${
-            scrolled
-              ? "bg-white/95 py-1 shadow-md backdrop-blur-md"
-              : "bg-white/80 py-1 shadow-sm backdrop-blur-sm"
-          }`}
-        >
+        <Link href="/staging-1" className="inline-block">
           <Image
             src="/favicon.png"
             alt="Soravana Logo"
             width={112}
             height={112}
-            className={`w-auto rounded-full transition-all duration-300 ${
-              scrolled ? "h-8 md:h-9" : "h-10 md:h-12"
+            className={`w-auto rounded-full transition-all duration-300 drop-shadow-md ${
+              scrolled ? "h-12 md:h-14" : "h-16 md:h-20"
             }`}
           />
-          <span
-            className={`hidden -ml-1 leading-none transition-all duration-300 sm:inline md:-ml-1.5 ${
-              scrolled ? "text-sm md:text-base" : "text-base md:text-lg"
-            }`}
-          >
-            SORAVANA
-          </span>
         </Link>
       </motion.div>
 
@@ -89,7 +75,7 @@ const NavbarStaging1 = () => {
           }`}
         >
           <div
-            className={`flex items-center gap-6 px-4 transition-all duration-300 md:justify-center md:px-7 ${
+            className={`flex items-center justify-between gap-6 px-4 transition-all duration-300 md:justify-center md:px-7 ${
               scrolled ? "py-1.5 md:py-1.5" : "py-2 md:py-2"
             }`}
           >
@@ -115,7 +101,7 @@ const NavbarStaging1 = () => {
               ))}
             </div>
             <button
-              className="text-foreground md:hidden"
+              className="text-foreground md:hidden ml-auto flex items-center justify-center"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
