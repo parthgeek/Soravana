@@ -25,15 +25,15 @@ const ContactForm = () => {
   return (
     <section id="contact-form" className="pb-14 md:pb-24 bg-[#FDFAF4]">
       <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* Left: animated brand visual */}
-          <div className="flex flex-col items-center justify-start gap-6 order-2 lg:order-1">
-            <div className="w-full max-w-sm">
+          <div className="flex flex-col items-center justify-start gap-6 order-2 lg:order-1 lg:justify-between lg:pb-12">
+            <div className="w-full max-w-sm -mt-32 lg:-mt-48 -mb-32 lg:-mb-48">
               <img
                 src="/Soravana-animated.gif"
                 alt="Soravana Farmland"
                 className="w-full h-auto object-contain"
-                style={{ mixBlendMode: "multiply" }}
+                style={{ mixBlendMode: "darken" }}
               />
             </div>
             <div className="text-center">
@@ -47,7 +47,7 @@ const ContactForm = () => {
           </div>
 
           {/* Right: form */}
-          <div className="order-1 lg:order-2 lg:pt-32">
+          <div className="order-1 lg:order-2">
             <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
               Get in Touch
             </h2>
