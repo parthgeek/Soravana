@@ -17,7 +17,11 @@
       "Bash(python3 /tmp/bg_remove.py soravana2.png src/app/icon.png 512 40)",
       "Bash(python3 -c ' *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(grep -i \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(rm -rf /tmp/claude-*)",
+      "Bash(npm run *)"
     ],
     "additionalDirectories": [
       "/private/tmp"

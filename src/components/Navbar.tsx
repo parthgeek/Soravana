@@ -77,7 +77,7 @@ const Navbar = () => {
               scrolled ? "py-1.5 md:py-1.5" : "py-2 md:py-2"
             }`}
           >
-            <div className={`items-center gap-7 ${scrolled ? "hidden" : "hidden md:flex"}`}>
+            <div className="hidden items-center gap-7 md:flex">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -95,7 +95,7 @@ const Navbar = () => {
               ))}
             </div>
             <button
-              className={`text-foreground ${scrolled ? "" : "md:hidden"}`}
+              className="text-foreground md:hidden"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
@@ -116,7 +116,7 @@ const Navbar = () => {
           <AnimatePresence initial={false}>
             {open && (
               <motion.div
-                className={`overflow-hidden border-t border-border/30 ${scrolled ? "" : "md:hidden"}`}
+                className="overflow-hidden border-t border-border/30 md:hidden"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
