@@ -306,7 +306,7 @@ const HeroSection = () => {
           <div>
             <h1
               ref={titleRef}
-              className="text-5xl md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-2 italic"
+              className="text-[2rem] md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-2 italic break-words"
             >
               Soravana Farmland
             </h1>

@@ -50,7 +50,7 @@ const NavbarStaging1 = () => {
       >
         <Link href="/staging-1" className="inline-block">
           <Image
-            src="/favicon.png"
+            src="/assets/Soravana_Logo.png"
             alt="Soravana Logo"
             width={112}
             height={112}
