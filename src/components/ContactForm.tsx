@@ -30,9 +30,10 @@ const ContactForm = () => {
           <div className="flex flex-col items-center justify-start gap-6 order-2 lg:order-1 lg:justify-between lg:pb-12">
             <div className="w-full max-w-sm -mt-32 lg:-mt-48 -mb-32 lg:-mb-48">
               <img
-                src="/assets/Soravana_Logo.png"
+                src="/Soravana-animated.gif"
                 alt="Soravana Farmland"
                 className="w-full h-auto object-contain"
+                style={{ mixBlendMode: "darken" }}
               />
             </div>
             <div className="text-center">
