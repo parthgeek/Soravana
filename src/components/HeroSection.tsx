@@ -302,8 +302,8 @@ const HeroSection = () => {
       </div>
       {/* Bottom content */}
       <div className="relative z-10 mt-auto pb-12 md:pb-16 pl-6 md:pl-10 lg:pl-14 pr-6 md:pr-12 lg:pr-16">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-8">
-          <div>
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div className="text-left">
             <h1
               ref={titleRef}
               className="text-[2rem] md:text-7xl lg:text-8xl font-heading leading-[0.95] text-primary-foreground mb-2 italic break-words"
