@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Location", href: "/staging-1/location" },
   { label: "Contact", href: "/staging-1/contact" },
 ];
+const mobileBadgeText = "Premium Managed Farmland • Near Bengaluru";
 
 const NavbarStaging1 = () => {
   const [open, setOpen] = useState(false);
@@ -52,10 +53,10 @@ const NavbarStaging1 = () => {
           <Image
             src="/assets/Soravana_Logo.png"
             alt="Soravana Logo"
-            width={112}
-            height={112}
+            width={128}
+            height={128}
             className={`w-auto rounded-full transition-all duration-300 drop-shadow-md ${
-              scrolled ? "h-12 md:h-14" : "h-16 md:h-20"
+              scrolled ? "h-14 md:h-16" : "h-[4.5rem] md:h-24"
             }`}
           />
         </Link>
@@ -67,6 +68,12 @@ const NavbarStaging1 = () => {
         animate={{ y: hidden ? -140 : 0, opacity: hidden ? 0 : 1 }}
         transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
       >
+        <div className="pointer-events-none absolute left-[7.25rem] right-[4.5rem] top-4 flex justify-center md:hidden">
+          <span className="max-w-full truncate whitespace-nowrap rounded-full bg-black/35 px-3 py-1 text-[7px] font-body font-semibold uppercase tracking-[0.12em] text-primary-foreground shadow-sm backdrop-blur-[2px]">
+            {mobileBadgeText}
+          </span>
+        </div>
+
         <div
           className={`ml-auto w-fit rounded-full transition-all duration-300 md:mr-0 ${
             scrolled
