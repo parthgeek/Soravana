@@ -42,9 +42,11 @@ const NavbarStaging1 = () => {
 
   return (
     <>
-      {/* Standalone logo — sits outside navbar so nav can stay short */}
+      {/* Standalone logo — sits outside navbar so nav can stay short.
+          Wrapped in same max-w-7xl + px scheme as HeroSection so logo
+          left edge aligns with the "Soravana Farmland" headline. */}
       <motion.div
-        className="fixed left-3 top-3 z-[60] md:left-6 md:top-4"
+        className="fixed left-3 top-2 z-[60] md:left-5 md:top-3"
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: hidden ? 0 : 1, y: hidden ? -20 : 0 }}
         transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
@@ -53,10 +55,10 @@ const NavbarStaging1 = () => {
           <Image
             src="/assets/Soravana_Logo.png"
             alt="Soravana Logo"
-            width={128}
-            height={128}
+            width={192}
+            height={192}
             className={`w-auto rounded-full transition-all duration-300 drop-shadow-md ${
-              scrolled ? "h-14 md:h-16" : "h-[4.5rem] md:h-24"
+              scrolled ? "h-16 md:h-20" : "h-24 md:h-32"
             }`}
           />
         </Link>
@@ -68,7 +70,7 @@ const NavbarStaging1 = () => {
         animate={{ y: hidden ? -140 : 0, opacity: hidden ? 0 : 1 }}
         transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="pointer-events-none absolute left-[7.25rem] right-[4.5rem] top-4 flex justify-center md:hidden">
+        <div className="pointer-events-none absolute left-[7rem] right-[4.5rem] top-4 flex justify-center md:hidden">
           <span className="max-w-full truncate whitespace-nowrap rounded-full bg-black/35 px-3 py-1 text-[7px] font-body font-semibold uppercase tracking-[0.12em] text-primary-foreground shadow-sm backdrop-blur-[2px]">
             {mobileBadgeText}
           </span>

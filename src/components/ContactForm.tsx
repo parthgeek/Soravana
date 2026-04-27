@@ -1,25 +1,85 @@
-import { useState } from "react";
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, CheckCircle2, Mail, MessageSquare, Phone, User } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+
+const isValidPhoneNumber = (value: string) => {
+  if (!/^\+?[0-9()\-\s]+$/.test(value)) {
+    return false;
+  }
+
+  const digitsOnly = value.replace(/\D/g, "");
+  return digitsOnly.length >= 10 && digitsOnly.length <= 15;
+};
+
+const contactFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Please enter your full name.")
+    .max(100, "Name must be 100 characters or fewer.")
+    .refine((value) => value.length >= 2, "Name must be at least 2 characters."),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "Please enter your phone number.")
+    .refine(isValidPhoneNumber, "Please enter a valid phone number."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email address.")
+    .email("Please enter a valid email address.")
+    .max(255, "Email must be 255 characters or fewer."),
+  message: z.string().trim().max(1000, "Message must be 1000 characters or fewer."),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+const defaultValues: ContactFormValues = {
+  name: "",
+  phone: "",
+  email: "",
+  message: "",
+};
 
 const ContactForm = () => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues,
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate form submission
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: "Thank you!",
-        description: "We'll get back to you shortly.",
-      });
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+  const handleSubmit = async () => {
+    await new Promise((resolve) => {
+      window.setTimeout(resolve, 1000);
+    });
+
+    toast({
+      title: "Thank you!",
+      description: "We'll get back to you shortly.",
+    });
+
+    form.reset(defaultValues);
+  };
+
+  const isSubmitting = form.formState.isSubmitting;
+  const messageValue = form.watch("message") ?? "";
+
+  const fieldStatusClass = (invalid: boolean, isDirty: boolean, error: boolean) => {
+    if (error) return "border-destructive focus-visible:ring-destructive pr-10";
+    if (isDirty && !invalid) return "border-emerald-500 focus-visible:ring-emerald-500 pr-10";
+    return "";
   };
 
   return (
@@ -38,7 +98,9 @@ const ContactForm = () => {
             </div>
             <div className="text-center">
               <p className="text-2xl md:text-3xl font-heading text-foreground leading-snug">
-                Experience Soravana<br />Before You Own It
+                Experience Soravana
+                <br />
+                Before You Own It
               </p>
               <p className="text-muted-foreground mt-3 text-sm">
                 Visit the site, feel the space, and discover a better way of living.
@@ -55,49 +117,178 @@ const ContactForm = () => {
             <p className="text-muted-foreground text-center mb-8">
               Fill in your details and our team will reach out to you.
             </p>
-            <form onSubmit={handleSubmit} className="space-y-5 bg-background rounded-xl p-8 shadow-sm">
-              <div>
-                <Input
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                noValidate
+                className="space-y-5 bg-background rounded-xl p-8 shadow-sm"
+              >
+                <FormField
+                  control={form.control}
                   name="name"
-                  placeholder="Full Name"
-                  required
-                  maxLength={100}
-                  className="bg-background"
+                  render={({ field, fieldState }) => {
+                    const showSuccess = fieldState.isDirty && !fieldState.invalid;
+                    return (
+                      <FormItem>
+                        <FormLabel className="sr-only">Full Name</FormLabel>
+                        <div className="relative">
+                          <User
+                            className={cn(
+                              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors",
+                              fieldState.error ? "text-destructive" : showSuccess ? "text-emerald-500" : "text-muted-foreground",
+                            )}
+                          />
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Full Name"
+                              autoComplete="name"
+                              maxLength={100}
+                              className={cn(
+                                "bg-background pl-10 pr-10 transition-colors",
+                                fieldStatusClass(fieldState.invalid, fieldState.isDirty, !!fieldState.error),
+                              )}
+                            />
+                          </FormControl>
+                          {fieldState.error ? (
+                            <AlertCircle className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                          ) : showSuccess ? (
+                            <CheckCircle2 className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-500" />
+                          ) : null}
+                        </div>
+                        <FormMessage className="flex items-center gap-1 animate-in fade-in slide-in-from-top-1 duration-200" />
+                      </FormItem>
+                    );
+                  }}
                 />
-              </div>
-              <div>
-                <Input
+
+                <FormField
+                  control={form.control}
                   name="phone"
-                  type="tel"
-                  placeholder="Phone Number"
-                  required
-                  maxLength={15}
-                  className="bg-background"
+                  render={({ field, fieldState }) => {
+                    const showSuccess = fieldState.isDirty && !fieldState.invalid;
+                    return (
+                      <FormItem>
+                        <FormLabel className="sr-only">Phone Number</FormLabel>
+                        <div className="relative">
+                          <Phone
+                            className={cn(
+                              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors",
+                              fieldState.error ? "text-destructive" : showSuccess ? "text-emerald-500" : "text-muted-foreground",
+                            )}
+                          />
+                          <FormControl>
+                            <Input
+                              {...field}
+                              type="tel"
+                              inputMode="tel"
+                              placeholder="Phone Number"
+                              autoComplete="tel"
+                              maxLength={20}
+                              className={cn(
+                                "bg-background pl-10 pr-10 transition-colors",
+                                fieldStatusClass(fieldState.invalid, fieldState.isDirty, !!fieldState.error),
+                              )}
+                            />
+                          </FormControl>
+                          {fieldState.error ? (
+                            <AlertCircle className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                          ) : showSuccess ? (
+                            <CheckCircle2 className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-500" />
+                          ) : null}
+                        </div>
+                        <FormMessage className="flex items-center gap-1 animate-in fade-in slide-in-from-top-1 duration-200" />
+                      </FormItem>
+                    );
+                  }}
                 />
-              </div>
-              <div>
-                <Input
+
+                <FormField
+                  control={form.control}
                   name="email"
-                  type="email"
-                  placeholder="Email Address"
-                  required
-                  maxLength={255}
-                  className="bg-background"
+                  render={({ field, fieldState }) => {
+                    const showSuccess = fieldState.isDirty && !fieldState.invalid;
+                    return (
+                      <FormItem>
+                        <FormLabel className="sr-only">Email Address</FormLabel>
+                        <div className="relative">
+                          <Mail
+                            className={cn(
+                              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors",
+                              fieldState.error ? "text-destructive" : showSuccess ? "text-emerald-500" : "text-muted-foreground",
+                            )}
+                          />
+                          <FormControl>
+                            <Input
+                              {...field}
+                              type="email"
+                              placeholder="Email Address"
+                              autoComplete="email"
+                              maxLength={255}
+                              className={cn(
+                                "bg-background pl-10 pr-10 transition-colors",
+                                fieldStatusClass(fieldState.invalid, fieldState.isDirty, !!fieldState.error),
+                              )}
+                            />
+                          </FormControl>
+                          {fieldState.error ? (
+                            <AlertCircle className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-destructive" />
+                          ) : showSuccess ? (
+                            <CheckCircle2 className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-500" />
+                          ) : null}
+                        </div>
+                        <FormMessage className="flex items-center gap-1 animate-in fade-in slide-in-from-top-1 duration-200" />
+                      </FormItem>
+                    );
+                  }}
                 />
-              </div>
-              <div>
-                <Textarea
+
+                <FormField
+                  control={form.control}
                   name="message"
-                  placeholder="Your Message (optional)"
-                  rows={4}
-                  maxLength={1000}
-                  className="bg-background resize-none"
+                  render={({ field, fieldState }) => (
+                    <FormItem>
+                      <FormLabel className="sr-only">Your Message</FormLabel>
+                      <div className="relative">
+                        <MessageSquare
+                          className={cn(
+                            "pointer-events-none absolute left-3 top-3 h-4 w-4 transition-colors",
+                            fieldState.error ? "text-destructive" : "text-muted-foreground",
+                          )}
+                        />
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            placeholder="Your Message (optional)"
+                            rows={4}
+                            maxLength={1000}
+                            className={cn(
+                              "bg-background pl-10 resize-none transition-colors",
+                              fieldState.error && "border-destructive focus-visible:ring-destructive",
+                            )}
+                          />
+                        </FormControl>
+                      </div>
+                      <div className="flex items-start justify-between gap-2">
+                        <FormMessage className="flex items-center gap-1 animate-in fade-in slide-in-from-top-1 duration-200" />
+                        <span
+                          className={cn(
+                            "ml-auto text-xs tabular-nums text-muted-foreground",
+                            messageValue.length >= 1000 && "text-destructive",
+                          )}
+                        >
+                          {messageValue.length}/1000
+                        </span>
+                      </div>
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
-                {loading ? "Sending..." : "Send Enquiry"}
-              </Button>
-            </form>
+
+                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Enquiry"}
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

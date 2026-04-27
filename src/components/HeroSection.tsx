@@ -301,8 +301,8 @@ const HeroSection = () => {
         </span>
       </div>
       {/* Bottom content */}
-      <div className="relative z-10 mt-auto pb-12 md:pb-16 px-6 md:px-12 lg:px-16">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8">
+      <div className="relative z-10 mt-auto pb-12 md:pb-16 pl-6 md:pl-10 lg:pl-14 pr-6 md:pr-12 lg:pr-16">
+        <div className="flex flex-col md:flex-row items-end justify-between gap-8">
           <div>
             <h1
               ref={titleRef}
@@ -312,7 +312,7 @@ const HeroSection = () => {
             </h1>
             <p
               ref={subtitleRef}
-              className="text-primary-foreground/80 font-heading italic text-lg font-bold md:text-xl md:font-bold mb-6"
+              className="text-primary-foreground/100 font-heading italic text-lg font-bold md:text-xl md:font-bold mb-6"
             >
               It's a life you return to.
             </p>
