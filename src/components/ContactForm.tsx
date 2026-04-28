@@ -110,7 +110,7 @@ const ContactForm = () => {
 
           {/* Right: form */}
           <div className="order-1 lg:order-2">
-            <h2 className="text-3xl md:text-5xl font-heading text-center mb-4">
+            <h2 className="text-2xl md:text-4xl font-heading text-center mb-4">
               Get in Touch
             </h2>
             <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
