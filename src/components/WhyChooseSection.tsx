@@ -22,7 +22,7 @@ const reasons = [
 const WhyChooseSection = () => (
   <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <AnimateIn variant="fadeUp" className="text-center mb-14">
           <h2 className="text-3xl md:text-5xl font-heading text-foreground mb-4">
             Why Choose Soravana?
@@ -38,11 +38,11 @@ const WhyChooseSection = () => (
             A truly organic heaven — where every detail is designed for sustainable, premium living.
           </p>
         </AnimateIn>
-        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {reasons.map((r) => (
-            <StaggerChild key={r}>
+            <StaggerChild key={r} className="h-full">
               <motion.div
-                className="flex flex-col items-start gap-3 bg-background rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
+                className="flex flex-col items-start gap-3 bg-background rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow h-full min-h-[200px]"
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
