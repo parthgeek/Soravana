@@ -21,7 +21,8 @@
       "Bash(grep -i \"\\\\.\\(tsx|ts\\)$\")",
       "Bash(curl -s http://localhost:3001)",
       "Bash(rm -rf /tmp/claude-*)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npm install *)"
     ],
     "additionalDirectories": [
       "/private/tmp"

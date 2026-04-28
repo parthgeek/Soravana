@@ -1,4 +1,10 @@
-import { Car } from "lucide-react";
+"use client";
+
+import { Car, Smartphone } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
+
+const mapsUrl =
+  "https://www.google.com/maps/search/?api=1&query=CHANDUSURYA+HOUSE,+9C3H%2BPQ2,+Nallahalli+Doddi,+Karnataka+562117";
 
 const distances = [
   { time: "120", label: "Minutes from Bengaluru Airport" },
@@ -32,17 +38,45 @@ const LocationSection = () => (
         ))}
       </div>
 
-      <div className="rounded-lg overflow-hidden shadow-md max-w-4xl mx-auto">
-        <iframe
-          title="Soravana Location"
-          src="https://www.google.com/maps?q=CHANDUSURYA+HOUSE,+9C3H%2BPQ2,+Nallahalli+Doddi,+Karnataka+562117&output=embed"
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 max-w-4xl mx-auto items-stretch">
+        <div className="rounded-lg overflow-hidden shadow-md">
+          <iframe
+            title="Soravana Location"
+            src="https://www.google.com/maps?q=CHANDUSURYA+HOUSE,+9C3H%2BPQ2,+Nallahalli+Doddi,+Karnataka+562117&output=embed"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-border/60 bg-background p-5 shadow-sm md:w-56">
+          <div className="flex items-center gap-2 text-accent">
+            <Smartphone className="h-4 w-4" />
+            <span className="text-xs font-semibold uppercase tracking-[0.12em]">Scan to open</span>
+          </div>
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Soravana location in Google Maps"
+            className="rounded-md bg-white p-2 ring-1 ring-border/50 transition-transform hover:scale-[1.02]"
+          >
+            <QRCodeSVG
+              value={mapsUrl}
+              size={160}
+              level="M"
+              marginSize={2}
+              fgColor="#0f172a"
+              bgColor="#ffffff"
+            />
+          </a>
+          <p className="text-[11px] text-muted-foreground text-center leading-snug">
+            Point your phone camera here to open directions in Google Maps.
+          </p>
+        </div>
       </div>
       <p className="text-[11px] text-muted-foreground/80 text-center mt-4">
         Travel times are approximate and can vary by traffic and time of day.
