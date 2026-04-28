@@ -63,8 +63,8 @@ const NavbarStaging1 = () => {
             className={`w-auto rounded-full transition-all duration-300 drop-shadow-md md:ml-7 ${
               isHomePage
                 ? scrolled
-                  ? "h-16 md:h-20"
-                  : "h-24 md:h-32"
+                  ? "h-12 md:h-20"
+                  : "h-16 md:h-32"
                 : scrolled
                   ? "h-12 md:h-16"
                   : "h-16 md:h-20"
