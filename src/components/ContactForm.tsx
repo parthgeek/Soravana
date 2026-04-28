@@ -84,11 +84,11 @@ const ContactForm = () => {
 
   return (
     <section id="contact-form" className="pb-14 md:pb-24 bg-[#FDFAF4]">
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+      <div className="container mx-auto px-4 max-w-[72rem]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
           {/* Left: animated brand visual */}
-          <div className="flex flex-col items-center justify-start gap-6 order-2 lg:order-1 lg:justify-between lg:pb-12">
-            <div className="w-full max-w-sm -mt-32 lg:-mt-48 -mb-32 lg:-mb-48">
+          <div className="flex flex-col items-center justify-start gap-5 order-2 lg:order-1 lg:justify-between lg:pb-8">
+            <div className="w-full max-w-[17rem] md:max-w-[20rem] lg:max-w-[24rem] -mt-20 md:-mt-24 lg:-mt-32 -mb-20 md:-mb-24 lg:-mb-32">
               <img
                 src="/Soravana-animated.gif"
                 alt="Soravana Farmland"
@@ -97,7 +97,7 @@ const ContactForm = () => {
               />
             </div>
             <div className="text-center">
-              <p className="text-2xl md:text-3xl font-heading text-foreground leading-snug">
+              <p className="text-xl md:text-2xl font-heading text-foreground leading-snug">
                 Experience Soravana
                 <br />
                 Before You Own It
@@ -109,7 +109,7 @@ const ContactForm = () => {
           </div>
 
           {/* Right: form */}
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 lg:max-w-[46rem] lg:ml-auto">
             <h2 className="text-2xl md:text-4xl font-heading text-center mb-4">
               Get in Touch
             </h2>
@@ -121,7 +121,7 @@ const ContactForm = () => {
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
                 noValidate
-                className="space-y-5 bg-background rounded-xl p-8 shadow-sm"
+                className="space-y-4 bg-background rounded-xl p-6 md:p-7 shadow-sm"
               >
                 <FormField
                   control={form.control}
