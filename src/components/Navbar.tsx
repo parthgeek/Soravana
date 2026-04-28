@@ -152,7 +152,7 @@ const Navbar = () => {
           <motion.button
             onClick={scrollToTop}
             aria-label="Return to top"
-            className="fixed bottom-5 left-1/2 z-[55] flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-accent text-white shadow-lg md:hidden"
+            className="fixed bottom-5 left-1/2 z-[55] flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-transform hover:scale-105 md:bottom-6"
             initial={{ opacity: 0, scale: 0.6, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.6, y: 20 }}
