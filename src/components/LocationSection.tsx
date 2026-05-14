@@ -53,9 +53,12 @@ const LocationSection = () => (
         </div>
 
         <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-border/60 bg-background p-5 shadow-sm md:w-56">
-          <div className="flex items-center gap-2 text-accent">
-            <Smartphone className="h-4 w-4" />
-            <span className="text-xs font-semibold uppercase tracking-[0.12em]">Scan to open</span>
+          <div className="flex items-start gap-2 text-accent">
+            <Smartphone className="mt-0.5 h-4 w-4 shrink-0" />
+            <div className="text-xs font-semibold uppercase tracking-[0.12em] leading-snug">
+              <div>Scan to open in</div>
+              <div className="text-center">Google Maps</div>
+            </div>
           </div>
           <a
             href={mapsUrl}
