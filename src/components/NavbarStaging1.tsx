@@ -73,6 +73,8 @@ const NavbarStaging1 = () => {
         </Link>
       </motion.div>
 
+
+
       <motion.nav
         className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 md:px-8 md:pt-4"
         initial={{ y: -80, opacity: 0 }}
