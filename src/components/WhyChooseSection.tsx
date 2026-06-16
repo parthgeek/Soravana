@@ -1,22 +1,49 @@
 import { motion } from "framer-motion";
+import {
+  FileCheck,
+  Hammer,
+  Leaf,
+  MapPinned,
+  Shield,
+  Sprout,
+  Trees,
+  Wifi,
+} from "lucide-react";
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 
-const sketchCheck = (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" strokeDasharray="3 2" />
-    <path d="M8 12 L11 15 L16 9" />
-  </svg>
-);
-
 const reasons = [
-  "Professionally managed organic farming with expert agronomists",
-  "100% legally verified with RERA-compliant documentation and transparent ownership.",
-  "Premium amenities: Nature Lounge, cottages and more",
-  "Approx. 85-120 minutes from key Bengaluru hubs",
-  "Complete freedom to design and build your dream home",
-  "Real-time farm updates and transparent reporting",
-  "Gated community with 24/7 security and CCTV",
-  "Eco-friendly infrastructure: solar, rainwater harvesting, composting",
+  {
+    icon: Sprout,
+    text: "Professionally managed organic farming with expert agronomists",
+  },
+  {
+    icon: FileCheck,
+    text: "100% legally verified with RERA-compliant documentation and transparent ownership.",
+  },
+  {
+    icon: Trees,
+    text: "Premium amenities: Nature Lounge, cottages and more",
+  },
+  {
+    icon: MapPinned,
+    text: "Approx. 85-120 minutes from key Bengaluru hubs",
+  },
+  {
+    icon: Hammer,
+    text: "Complete freedom to design and build your dream home",
+  },
+  {
+    icon: Wifi,
+    text: "Real-time farm updates and transparent reporting",
+  },
+  {
+    icon: Shield,
+    text: "Gated community with 24/7 security and CCTV",
+  },
+  {
+    icon: Leaf,
+    text: "Eco-friendly infrastructure: solar, rainwater harvesting, composting",
+  },
 ];
 
 const WhyChooseSection = () => (
@@ -39,15 +66,17 @@ const WhyChooseSection = () => (
           </p>
         </AnimateIn>
         <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {reasons.map((r) => (
-            <StaggerChild key={r} className="h-full">
+          {reasons.map(({ icon: Icon, text }) => (
+            <StaggerChild key={text} className="h-full">
               <motion.div
                 className="flex flex-col items-start gap-3 bg-background rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow h-full min-h-[200px]"
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="text-accent">{sketchCheck}</span>
-                <p className="text-foreground/80 text-sm leading-relaxed">{r}</p>
+                <span className="text-accent">
+                  <Icon className="h-5 w-5" strokeWidth={1.8} />
+                </span>
+                <p className="text-foreground/80 text-sm leading-relaxed">{text}</p>
               </motion.div>
             </StaggerChild>
           ))}

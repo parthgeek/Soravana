@@ -12,7 +12,7 @@ const BuildSection = () => (
   <section className="section-spacing bg-background">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <AnimateIn variant="fadeLeft" className="order-2 lg:order-1">
+        <AnimateIn variant="fadeLeft" className="order-2 lg:order-1 lg:pl-8">
           <h2 className="text-3xl md:text-4xl font-heading mb-4">Build Your Space, Your Way</h2>
           <motion.div
             className="w-12 h-0.5 bg-accent mb-6"
