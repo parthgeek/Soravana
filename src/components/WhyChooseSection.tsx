@@ -1,47 +1,57 @@
 "use client";
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Image from "next/image";
+import {
+  BellRing,
+  Camera,
+  Car,
+  FileCheck,
+  Home,
+  Recycle,
+  Sprout,
+  Trees,
+  type LucideIcon,
+} from "lucide-react";
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 
 const reasons = [
   {
-    iconSrc: "/assets/noun-icons/farm-crop-rows-8331711.png",
+    icon: Sprout,
     text: "Professionally managed organic farming with expert agronomists",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-field-trees-8283635.png",
+    icon: FileCheck,
     text: "100% legally verified with RERA-compliant documentation and transparent ownership.",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-barn-8331706.png",
+    icon: Trees,
     text: "Premium amenities: Nature Lounge, cottages and more",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-rolling-fields-8331708.png",
+    icon: Car,
     text: "Approx. 85-120 minutes from key Bengaluru hubs",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-house-fields-8283659.png",
+    icon: Home,
     text: "Complete freedom to design and build your dream home",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-barn-fields-8283634.png",
+    icon: BellRing,
     text: "Real-time farm updates and transparent reporting",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-tree-line-8283673.png",
+    icon: Camera,
     text: "Gated community with 24/7 security and CCTV",
   },
   {
-    iconSrc: "/assets/noun-icons/farm-wheat-8283636.png",
+    icon: Recycle,
     text: "Eco-friendly infrastructure: solar, rainwater harvesting, composting",
   },
 ];
 
-type ReasonCardProps = { iconSrc: string; text: string };
+type ReasonCardProps = { icon: LucideIcon; text: string };
 
-const ReasonCard = ({ iconSrc, text }: ReasonCardProps) => {
+const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -106,14 +116,7 @@ const ReasonCard = ({ iconSrc, text }: ReasonCardProps) => {
             animate={hovered ? { rotate: [0, -12, 12, -5, 0] } : { rotate: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <Image
-              src={iconSrc}
-              alt=""
-              width={64}
-              height={64}
-              aria-hidden="true"
-              className="h-8 w-8 object-contain opacity-90 [filter:brightness(0)_saturate(100%)_invert(22%)_sepia(23%)_saturate(1068%)_hue-rotate(105deg)_brightness(92%)_contrast(93%)]"
-            />
+            <Icon aria-hidden="true" className="h-8 w-8 text-primary/90" />
           </motion.div>
         </motion.div>
 
@@ -144,51 +147,29 @@ const ReasonCard = ({ iconSrc, text }: ReasonCardProps) => {
 const WhyChooseSection = () => (
   <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
-        <AnimateIn variant="fadeUp" className="text-center mb-14">
-          <h2 className="text-3xl md:text-5xl font-heading text-foreground mb-4">
-            Why Choose Soravana?
-          </h2>
-          <motion.div
-            className="w-16 h-0.5 bg-accent mx-auto mb-6"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          />
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            A truly organic heaven — where every detail is designed for sustainable, premium living.
-          </p>
-        </AnimateIn>
-
-        <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-          {reasons.map(({ iconSrc, text }) => (
-            <StaggerChild key={text} className="h-full">
-              <ReasonCard iconSrc={iconSrc} text={text} />
-            </StaggerChild>
-          ))}
-        </StaggerParent>
-
-        <p className="mt-6 text-center text-xs text-muted-foreground/70">
-          Farm icons by{" "}
-          <a
-            href="https://thenounproject.com/creator/ishaqahmad.ar/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-2 transition-colors hover:text-accent"
-          >
-            Ahmad Ishaq
-          </a>{" "}
-          from{" "}
-          <a
-            href="https://thenounproject.com/search/icons/?q=farm"
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-2 transition-colors hover:text-accent"
-          >
-            Noun Project
-          </a>
-          .
+      <AnimateIn variant="fadeUp" className="text-center mb-14">
+        <h2 className="text-3xl md:text-5xl font-heading text-foreground mb-4">
+          Why Choose Soravana?
+        </h2>
+        <motion.div
+          className="w-16 h-0.5 bg-accent mx-auto mb-6"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+        <p className="text-muted-foreground max-w-xl mx-auto">
+          A truly organic heaven — where every detail is designed for sustainable, premium living.
         </p>
+      </AnimateIn>
+
+      <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+        {reasons.map(({ icon, text }) => (
+          <StaggerChild key={text} className="h-full">
+            <ReasonCard icon={icon} text={text} />
+          </StaggerChild>
+        ))}
+      </StaggerParent>
     </div>
   </section>
 );

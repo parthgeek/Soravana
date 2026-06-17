@@ -1,12 +1,12 @@
 "use client";
 import { useRef, useState } from "react";
-import { LayoutTemplate, Layers, Hourglass, TreeDeciduous, Handshake } from "lucide-react";
+import { Building2, Handshake, Hourglass, PencilRuler, TreeDeciduous } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 
 const freedoms = [
-  { icon: LayoutTemplate, title: "Your Design, Your Rules", desc: "No cookie-cutter layouts. Build the home you've always imagined." },
-  { icon: Layers, title: "Any Architecture Style", desc: "Modern, rustic, traditional, or minimalist — it's entirely your call." },
+  { icon: PencilRuler, title: "Your Design, Your Rules", desc: "No cookie-cutter layouts. Build the home you've always imagined." },
+  { icon: Building2, title: "Any Architecture Style", desc: "Modern, rustic, traditional, or minimalist — it's entirely your call." },
   { icon: Hourglass, title: "Build on Your Timeline", desc: "No pressure to start immediately. Construct when you're ready." },
   { icon: TreeDeciduous, title: "Landscape Freely", desc: "Design your gardens, pathways, and outdoor spaces however you wish." },
   { icon: Handshake, title: "Choose Your Builder", desc: "Hire any contractor or use our recommended partners — no lock-ins." },
