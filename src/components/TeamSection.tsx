@@ -66,12 +66,6 @@ const TeamCard = ({ icon: Icon, role, desc }: TeamCardProps) => {
         transition={{ duration: 0.2 }}
       />
 
-      <motion.div
-        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent/40"
-        animate={hovered ? { scale: 3, opacity: 0.3 } : { scale: 1, opacity: 1 }}
-        transition={{ duration: 0.35 }}
-      />
-
       <div className="relative z-10 p-6 flex flex-col gap-4">
         <motion.div
           className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/25 to-accent/8 flex items-center justify-center shadow-sm"

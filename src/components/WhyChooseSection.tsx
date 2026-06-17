@@ -1,32 +1,47 @@
 "use client";
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import {
-  FileCheck,
-  Hammer,
-  Leaf,
-  MapPinned,
-  Shield,
-  Sprout,
-  Trees,
-  Wifi,
-} from "lucide-react";
+import Image from "next/image";
 import AnimateIn, { StaggerParent, StaggerChild } from "@/components/AnimateIn";
 
 const reasons = [
-  { icon: Sprout, text: "Professionally managed organic farming with expert agronomists" },
-  { icon: FileCheck, text: "100% legally verified with RERA-compliant documentation and transparent ownership." },
-  { icon: Trees, text: "Premium amenities: Nature Lounge, cottages and more" },
-  { icon: MapPinned, text: "Approx. 85-120 minutes from key Bengaluru hubs" },
-  { icon: Hammer, text: "Complete freedom to design and build your dream home" },
-  { icon: Wifi, text: "Real-time farm updates and transparent reporting" },
-  { icon: Shield, text: "Gated community with 24/7 security and CCTV" },
-  { icon: Leaf, text: "Eco-friendly infrastructure: solar, rainwater harvesting, composting" },
+  {
+    iconSrc: "/assets/noun-icons/farm-crop-rows-8331711.png",
+    text: "Professionally managed organic farming with expert agronomists",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-field-trees-8283635.png",
+    text: "100% legally verified with RERA-compliant documentation and transparent ownership.",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-barn-8331706.png",
+    text: "Premium amenities: Nature Lounge, cottages and more",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-rolling-fields-8331708.png",
+    text: "Approx. 85-120 minutes from key Bengaluru hubs",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-house-fields-8283659.png",
+    text: "Complete freedom to design and build your dream home",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-barn-fields-8283634.png",
+    text: "Real-time farm updates and transparent reporting",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-tree-line-8283673.png",
+    text: "Gated community with 24/7 security and CCTV",
+  },
+  {
+    iconSrc: "/assets/noun-icons/farm-wheat-8283636.png",
+    text: "Eco-friendly infrastructure: solar, rainwater harvesting, composting",
+  },
 ];
 
-type ReasonCardProps = { icon: React.ElementType; text: string };
+type ReasonCardProps = { iconSrc: string; text: string };
 
-const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
+const ReasonCard = ({ iconSrc, text }: ReasonCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -80,13 +95,6 @@ const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
         transition={{ duration: 0.2 }}
       />
 
-      {/* Decorative corner dot */}
-      <motion.div
-        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent/40"
-        animate={hovered ? { scale: 3, opacity: 0.3 } : { scale: 1, opacity: 1 }}
-        transition={{ duration: 0.35 }}
-      />
-
       <div className="relative z-10 p-5 flex flex-col gap-4">
         {/* Icon in rounded square tile */}
         <motion.div
@@ -98,7 +106,14 @@ const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
             animate={hovered ? { rotate: [0, -12, 12, -5, 0] } : { rotate: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <Icon className="h-7 w-7 text-accent" strokeWidth={1.4} />
+            <Image
+              src={iconSrc}
+              alt=""
+              width={64}
+              height={64}
+              aria-hidden="true"
+              className="h-8 w-8 object-contain opacity-90 [filter:brightness(0)_saturate(100%)_invert(22%)_sepia(23%)_saturate(1068%)_hue-rotate(105deg)_brightness(92%)_contrast(93%)]"
+            />
           </motion.div>
         </motion.div>
 
@@ -146,12 +161,34 @@ const WhyChooseSection = () => (
         </AnimateIn>
 
         <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-          {reasons.map(({ icon, text }) => (
+          {reasons.map(({ iconSrc, text }) => (
             <StaggerChild key={text} className="h-full">
-              <ReasonCard icon={icon} text={text} />
+              <ReasonCard iconSrc={iconSrc} text={text} />
             </StaggerChild>
           ))}
         </StaggerParent>
+
+        <p className="mt-6 text-center text-xs text-muted-foreground/70">
+          Farm icons by{" "}
+          <a
+            href="https://thenounproject.com/creator/ishaqahmad.ar/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-2 transition-colors hover:text-accent"
+          >
+            Ahmad Ishaq
+          </a>{" "}
+          from{" "}
+          <a
+            href="https://thenounproject.com/search/icons/?q=farm"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-2 transition-colors hover:text-accent"
+          >
+            Noun Project
+          </a>
+          .
+        </p>
     </div>
   </section>
 );

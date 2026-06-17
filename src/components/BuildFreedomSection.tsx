@@ -74,13 +74,6 @@ const FreedomCard = ({ icon: Icon, title, desc }: FreedomCardProps) => {
         transition={{ duration: 0.2 }}
       />
 
-      {/* Corner dot */}
-      <motion.div
-        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent/40"
-        animate={hovered ? { scale: 3, opacity: 0.3 } : { scale: 1, opacity: 1 }}
-        transition={{ duration: 0.35 }}
-      />
-
       <div className="relative z-10 p-6 flex flex-col gap-4">
         {/* Icon in rounded square tile */}
         <motion.div
