@@ -32,18 +32,16 @@ const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
 
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-
   const springCfg = { damping: 25, stiffness: 250 };
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [10, -10]), springCfg);
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), springCfg);
-
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]), springCfg);
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), springCfg);
   const glowX = useTransform(rawX, [-0.5, 0.5], [0, 100]);
   const glowY = useTransform(rawY, [-0.5, 0.5], [0, 100]);
 
   const shimmerBg = useTransform(
     [glowX, glowY],
     ([lx, ly]: number[]) =>
-      `radial-gradient(circle at ${lx}% ${ly}%, rgba(255,255,255,0.2) 0%, transparent 55%)`
+      `radial-gradient(circle at ${lx}% ${ly}%, rgba(255,255,255,0.28) 0%, transparent 60%)`
   );
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -65,52 +63,65 @@ const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformPerspective: 800 }}
-      className="relative flex flex-col items-start gap-3 bg-background rounded-xl p-6 border border-border overflow-hidden cursor-default h-full min-h-[200px]"
-      whileHover={{
-        scale: 1.025,
-        boxShadow: "0 20px 56px rgba(0,0,0,0.11)",
-        borderColor: "rgba(74,107,80,0.4)",
-      }}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      className="relative rounded-2xl overflow-hidden cursor-default"
+      initial={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
+      whileHover={{ scale: 1.04, boxShadow: "0 24px 64px rgba(0,0,0,0.13)" }}
       transition={{ duration: 0.25 }}
     >
-      {/* Mouse-tracking shimmer */}
+      {/* Gradient card background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/[0.07]" />
+
+      {/* Mouse shimmer */}
       <motion.div
-        className="absolute inset-0 pointer-events-none rounded-xl"
+        className="absolute inset-0 pointer-events-none"
         style={{ background: shimmerBg }}
         animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.25 }}
+        transition={{ duration: 0.2 }}
       />
 
-      {/* Bottom accent line */}
+      {/* Decorative corner dot */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-accent"
-        initial={{ width: "0%" }}
-        animate={{ width: hovered ? "100%" : "0%" }}
+        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent/40"
+        animate={hovered ? { scale: 3, opacity: 0.3 } : { scale: 1, opacity: 1 }}
+        transition={{ duration: 0.35 }}
+      />
+
+      <div className="relative z-10 p-5 flex flex-col gap-4">
+        {/* Icon in rounded square tile */}
+        <motion.div
+          className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/25 to-accent/8 flex items-center justify-center shadow-sm"
+          animate={hovered ? { scale: 1.1, rotate: -5 } : { scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 280, damping: 18 }}
+        >
+          <motion.div
+            animate={hovered ? { rotate: [0, -12, 12, -5, 0] } : { rotate: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <Icon className="h-7 w-7 text-accent" strokeWidth={1.4} />
+          </motion.div>
+        </motion.div>
+
+        <motion.p
+          className="text-foreground/80 text-sm leading-relaxed"
+          animate={hovered ? { x: 2 } : { x: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {text}
+        </motion.p>
+      </div>
+
+      {/* Gradient bottom line */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
+        initial={{ width: "0%", left: "50%" }}
+        animate={
+          hovered
+            ? { width: "100%", left: "0%" }
+            : { width: "0%", left: "50%" }
+        }
         transition={{ duration: 0.38, ease: [0.25, 0.1, 0.25, 1] }}
       />
-
-      {/* Icon with wobble */}
-      <motion.span
-        className="text-accent relative z-10"
-        animate={hovered ? { scale: 1.2 } : { scale: 1 }}
-        transition={{ type: "spring", stiffness: 320, damping: 18 }}
-      >
-        <motion.div
-          animate={hovered ? { rotate: [0, -14, 14, -6, 0] } : { rotate: 0 }}
-          transition={{ duration: 0.48, ease: "easeInOut" }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={1.8} />
-        </motion.div>
-      </motion.span>
-
-      <motion.p
-        className="text-foreground/80 text-sm leading-relaxed relative z-10"
-        animate={hovered ? { x: 3 } : { x: 0 }}
-        transition={{ duration: 0.22, ease: "easeOut" }}
-      >
-        {text}
-      </motion.p>
     </motion.div>
   );
 };
@@ -118,7 +129,6 @@ const ReasonCard = ({ icon: Icon, text }: ReasonCardProps) => {
 const WhyChooseSection = () => (
   <section className="section-spacing bg-section-alt">
     <div className="container mx-auto px-4">
-      <div className="max-w-6xl mx-auto">
         <AnimateIn variant="fadeUp" className="text-center mb-14">
           <h2 className="text-3xl md:text-5xl font-heading text-foreground mb-4">
             Why Choose Soravana?
@@ -135,14 +145,13 @@ const WhyChooseSection = () => (
           </p>
         </AnimateIn>
 
-        <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
           {reasons.map(({ icon, text }) => (
             <StaggerChild key={text} className="h-full">
               <ReasonCard icon={icon} text={text} />
             </StaggerChild>
           ))}
         </StaggerParent>
-      </div>
     </div>
   </section>
 );

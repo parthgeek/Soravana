@@ -57,55 +57,64 @@ const FreedomCard = ({ icon: Icon, title, desc }: FreedomCardProps) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformPerspective: 800 }}
-      className="relative bg-card rounded-xl p-8 border border-border overflow-hidden cursor-default"
-      whileHover={{
-        scale: 1.025,
-        borderColor: "rgba(var(--accent-rgb, 74 107 80), 0.4)",
-        boxShadow: "0 24px 64px rgba(0,0,0,0.12)",
-      }}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      className="relative rounded-2xl overflow-hidden cursor-default"
+      initial={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
+      whileHover={{ scale: 1.04, boxShadow: "0 24px 64px rgba(0,0,0,0.13)" }}
       transition={{ duration: 0.25 }}
     >
-      {/* Mouse-tracking shimmer */}
+      {/* Gradient card background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/[0.07]" />
+
+      {/* Mouse shimmer */}
       <motion.div
-        className="absolute inset-0 pointer-events-none rounded-xl"
+        className="absolute inset-0 pointer-events-none"
         style={{ background: shimmerBg }}
         animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.25 }}
+        transition={{ duration: 0.2 }}
       />
 
-      {/* Bottom accent line slides in */}
+      {/* Corner dot */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-accent"
-        initial={{ width: "0%" }}
-        animate={{ width: hovered ? "100%" : "0%" }}
+        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent/40"
+        animate={hovered ? { scale: 3, opacity: 0.3 } : { scale: 1, opacity: 1 }}
+        transition={{ duration: 0.35 }}
+      />
+
+      <div className="relative z-10 p-6 flex flex-col gap-4">
+        {/* Icon in rounded square tile */}
+        <motion.div
+          className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/25 to-accent/8 flex items-center justify-center shadow-sm"
+          animate={hovered ? { scale: 1.1, rotate: -5 } : { scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 280, damping: 18 }}
+        >
+          <motion.div
+            animate={hovered ? { rotate: [0, -12, 12, -5, 0] } : { rotate: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <Icon className="w-7 h-7 text-accent" strokeWidth={1.4} />
+          </motion.div>
+        </motion.div>
+
+        <div>
+          <motion.h3
+            className="font-heading text-lg mb-1.5"
+            animate={hovered ? { x: 2 } : { x: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {title}
+          </motion.h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
+        </div>
+      </div>
+
+      {/* Gradient bottom line expands from center */}
+      <motion.div
+        className="absolute bottom-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
+        initial={{ width: "0%", left: "50%" }}
+        animate={hovered ? { width: "100%", left: "0%" } : { width: "0%", left: "50%" }}
         transition={{ duration: 0.38, ease: [0.25, 0.1, 0.25, 1] }}
       />
-
-      {/* Icon with wobble */}
-      <motion.div
-        className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-5 relative z-10"
-        animate={hovered ? { scale: 1.18, backgroundColor: "rgba(74,107,80,0.18)" } : { scale: 1 }}
-        transition={{ type: "spring", stiffness: 320, damping: 18 }}
-      >
-        <motion.div
-          animate={hovered ? { rotate: [0, -14, 14, -6, 0] } : { rotate: 0 }}
-          transition={{ duration: 0.48, ease: "easeInOut" }}
-        >
-          <Icon className="w-5 h-5 text-accent" />
-        </motion.div>
-      </motion.div>
-
-      <div className="relative z-10">
-        <motion.h3
-          className="font-heading text-lg mb-2"
-          animate={hovered ? { x: 4 } : { x: 0 }}
-          transition={{ duration: 0.22, ease: "easeOut" }}
-        >
-          {title}
-        </motion.h3>
-        <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
-      </div>
     </motion.div>
   );
 };
